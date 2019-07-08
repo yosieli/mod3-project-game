@@ -3,44 +3,51 @@ class HomePage{
     constructor(){
         //creates title on home page
         this.h1 = c('h1')
-        this.h1.innerText = "Home Page"
+        this.h1.innerText = "Dungeon Something"
         this.h1.className = "main-title"
-        
-        //creates div of options
-        this.optionsdiv = c('div')
 
         //create account option
-        let newUserh3 = c('h3')
-        newUserh3.innerText = "Create Account"
-        newUserh3.className = "options"
-        newUserh3.addEventListener('click',()=>this.newUser())
+        let newUserh2 = c('h2')
+        newUserh2.innerText = "Create Account"
+        newUserh2.className = "options"
+        newUserh2.addEventListener('click',()=>this.newUser())
         
         //login option
-        let loginh3 = c('h3')
-        loginh3.innerText = "Log In"
-        loginh3.className = "options"
-        loginh3.addEventListener('click',()=>this.login())
+        let loginh2 = c('h2')
+        loginh2.innerText = "Log In"
+        loginh2.className = "options"
+        loginh2.addEventListener('click',()=>this.login())
 
         //option to check high scores
-        let highScoresh3 = c('h3')
-        highScoresh3.innerText = "High Scores"
-        highScoresh3.className = "options"
-        highScoresh3.addEventListener('click',()=>this.highScores())
+        let highScoresh2 = c('h2')
+        highScoresh2.innerText = "High Scores"
+        highScoresh2.className = "options"
+        highScoresh2.addEventListener('click',()=>this.highScores())
 
-        //appends options to div
-        this.optionsdiv.append(newUserh3,loginh3,highScoresh3)
+        //creates div of options and appends options to the div
+        this.optionsdiv = c('div')
+        this.optionsdiv.className = "options-div"
+        this.optionsdiv.append(newUserh2,loginh2,highScoresh2)
 
         //creates div for forms/high score list and starts with high score list
         this.listdiv = c('div')
+        this.listdiv.className = "list-div"
         this.highScores()
+
+        //div for all homepage divs
+        this.homeDiv = c('div')
+        this.homeDiv.className="home-div"
+        this.homeDiv.append(this.optionsdiv,this.listdiv)
 
     }
 
     //renders everything to the body of the document
     render(){
         document.body.innerHTML = ""
-        document.body.append(this.h1,this.optionsdiv,this.listdiv)
+        document.body.append(this.h1,this.homeDiv)
         this.highScores()
+
+        loadSource()
     }
 
     //renders account creation into listdiv
@@ -193,7 +200,7 @@ class HomePage{
     listScores(file,ol){
         
         let li = c('li')
-        li.innerText=`Username: ${file.user.username} | Level: ${file.level} | Time: ${file.time} seconds`
+        li.innerText=`${file.user.username} | Level: ${file.level} | Time: ${file.time} seconds`
         ol.append(li)
 
     }

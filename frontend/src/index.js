@@ -6,6 +6,7 @@ let homePage
 
 
 document.addEventListener('DOMContentLoaded',()=>{
+
     homePage = new HomePage
     homePage.render()
 })

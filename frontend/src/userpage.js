@@ -29,13 +29,16 @@ class UserPage{
 
         //logout button
         this.logoutbutton = c('button')
-        this.logoutbutton.innerText = "LOGOUT"
+        this.logoutbutton.innerText = "Log Out"
+        this.logoutbutton.className = 'logout'
         this.logoutbutton.addEventListener('click',()=>this.logout())   
     }
 
     render(){
         document.body.innerHTML = ""
         document.body.append(this.h1,this.optionsdiv,this.logoutbutton)
+
+        loadSource()
     }
 
     saveFile(file,count){
@@ -48,21 +51,18 @@ class UserPage{
         
         let level = c('h3')
         level.className = 'save-info'
-        level.innerText = file.level
+        level.innerText = "Level: " + file.level
 
         let time = c('h3')
         time.className = 'save-info'
-        time.innerText = file.time
+        time.innerText = "Time: " + file.time
 
         let health = c('h3')
         health.className = 'save-info'
-        health.innerText = file.health
+        health.innerText = "Health: " + file.health
 
         div.append(h2,level,time,health)
         this.optionsdiv.append(div)
-        
-
-        console.log(file)
     }
 
     logout(){
