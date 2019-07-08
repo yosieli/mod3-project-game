@@ -13,7 +13,7 @@ class HomePage{
         let newUserh3 = c('h3')
         newUserh3.innerText = "Create Account"
         newUserh3.className = "options"
-        newUserh3.addEventListener('click',()=>this.createAccount())
+        newUserh3.addEventListener('click',()=>this.newUser())
         
         //login option
         let loginh3 = c('h3')
@@ -44,7 +44,7 @@ class HomePage{
     }
 
     //renders account creation into listdiv
-    createAccount(){
+    newUser(){
         this.listdiv.innerText = ""
         let h2 = c('h2')
         h2.innerText = "Create an Account"
@@ -72,23 +72,54 @@ class HomePage{
         submit.type = 'submit'
 
         form.append(usernameInput,c('br'),passwordInput,c('br'),passwordConfirm, c('br'),submit)
+        form.addEventListener('submit', (e)=>this.createUser(e,usernameInput,passwordInput,passwordConfirm))
 
         this.listdiv.append(form)
     }
 
+    //creates new user
+    createUser(e,usernameInput,passwordInput,passwordConfirm){
+        e.preventDefault()
+
+        if(passwordInput.value != passwordConfirm.value){
+            alert('Passwords do not match')
+        }else{
+            fetch(userURL,{
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json',
+                    'Accept':'application/json'
+                },
+                body: JSON.stringify({
+                    username: usernameInput.value,
+                    password: passwordInput.value
+                })
+            })
+            .then(response => response.json())
+            .then(result => result.username)
+            .then(name => this.login(name))
+
+            usernameInput.value = ""
+            passwordInput.value = ""
+            passwordConfirm.value = ""
+        }
+
+    }
+
     //renders login info into listdiv
-    login(){
+    login(name = null){
         this.listdiv.innerText = ""
         let h2 = c('h2')
         h2.innerText = "Log In"
         this.listdiv.append(h2)
-        this.loginForm()
+        this.loginForm(name)
     }
 
     //form to log in
-    loginForm(){
+    loginForm(name){
         let form = c('form')
         let usernameInput = c('input')
+        usernameInput.value = name
         usernameInput.type = 'text'
         usernameInput.placeholder = "Username"
 
@@ -100,6 +131,7 @@ class HomePage{
         submit.type = 'submit'
 
         form.append(usernameInput,c('br'),passwordInput, c('br'),submit)
+
 
         this.listdiv.append(form)
     }
