@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_150847) do
   create_table "savefiles", force: :cascade do |t|
     t.integer "user_id"
     t.integer "level"
-    t.text "time"
+    t.integer "time"
     t.integer "health"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

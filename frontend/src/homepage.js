@@ -34,13 +34,13 @@ class HomePage{
         this.listdiv = c('div')
         this.highScores()
 
-        //renders everything to the body of the document
-        this.render()
     }
 
     //renders everything to the body of the document
     render(){
+        document.body.innerHTML = ""
         document.body.append(this.h1,this.optionsdiv,this.listdiv)
+        this.highScores()
     }
 
     //renders account creation into listdiv
@@ -81,7 +81,7 @@ class HomePage{
     createUser(e,usernameInput,passwordInput,passwordConfirm){
         e.preventDefault()
 
-        if(passwordInput.value != passwordConfirm.value){
+        if(passwordInput.value !== passwordConfirm.value){
             alert('Passwords do not match')
         }else{
             fetch(userURL,{
@@ -131,19 +131,71 @@ class HomePage{
         submit.type = 'submit'
 
         form.append(usernameInput,c('br'),passwordInput, c('br'),submit)
-
+        form.addEventListener('submit', (e) => this.userPage(e,usernameInput,passwordInput))
 
         this.listdiv.append(form)
     }
 
+    //directs to User's page
+    userPage(e,usernameInput,passwordInput){
+        e.preventDefault()
+
+        //fetch users
+        fetch(userURL)
+        .then(response => response.json())
+        .then(users => {
+            let desiredUser = users.find( (user) => user.username===usernameInput.value )
+            //checks if username exists and if password is correct
+            if(desiredUser && (desiredUser.password===passwordInput.value) ){
+                let userPage = new UserPage(desiredUser)
+                userPage.render()
+                usernameInput.value = ""
+                passwordInput.value = ""
+            }else{
+                alert("Incorrect Username or Password")
+            }  
+        })
+    }
+
+
+
     //puts high scores in listdiv
     highScores(){
-        this.listdiv.innerText = ""
-        let h2 = c('h2')
-        h2.innerText = "High Scores"
-        this.listdiv.append(h2)
+        fetch(saveURL)
+        .then(response => response.json())
+        .then(result => {
+            let orderedFiles = this.organizeScores(result)
+            let ol = c('ol')
+            orderedFiles.forEach((file)=>this.listScores(file,ol))
+            return ol
+        })
+        .then((ol)=>{
+            this.listdiv.innerText = ""
+            let h2 = c('h2')
+            h2.innerText = "High Scores"
+            this.listdiv.append(h2,ol)
+        })
+    }
 
-        //puts top 10 scores with usernames
+    //arranges save files in order by level and then by time if level is tied
+    organizeScores(files){
+        files.sort(function(a, b){
+            if(a.level === b.level){
+                return a.time-b.time
+            }else{
+                return b.level-a.level
+            }
+        })
+        return files
+    }
+
+    //list the high scores
+    listScores(file,ol){
+        
+        let li = c('li')
+        li.innerText=`Username: ${file.user.username} | Level: ${file.level} | Time: ${file.time} seconds`
+        ol.append(li)
+
     }
 
 }

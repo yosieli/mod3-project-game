@@ -5,3 +5,14 @@
 .options{
     color: blue;
 }
+.save-file{
+    border: solid 1px black;
+}
+.save-info{
+    text-align: center;
+    color: red;
+}
+.save-title{
+    text-align: center;
+    color: blue;
+}

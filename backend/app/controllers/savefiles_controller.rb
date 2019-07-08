@@ -1,7 +1,7 @@
 class SavefilesController < ApplicationController
 
     def index
-        render plain: "hello"
+        render json: Savefile.all, methods: [:user]
     end
 
 end
