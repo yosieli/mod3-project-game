@@ -8,6 +8,7 @@ class Character{
         this.element.style.width = '75px'
         this.element.style.height = '75px'
         this.element.style.position = 'absolute'
+        this.element.style.border = "solid 2px black"
 
         this.element.src = `${this.ASSET_ROOT}/idle.gif`
         this.element.direction = [null,null]
@@ -98,6 +99,15 @@ class Character{
         }else if(this.element.direction[1]=='right'){
             this.element.src = `${this.ASSET_ROOT}/runRight.gif`
         }
+    }
+
+    hurtbox(){
+        leftBorder = this.element.style.left + 20
+        rightBorder = this.element.style.left + 55
+        topBorder = this.element.style.bottom + 75
+        bottomBorder = this.element.style.bottom
+
+        return [leftBorder,rightBorder,topBorder,bottomBorder]
     }
 
 }
