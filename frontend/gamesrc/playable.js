@@ -106,6 +106,10 @@ class PlayableCharacter extends Character{
         this.finishSlash = false
         this.element.src = `${this.ASSET_ROOT}/slash${direction}.gif`
 
+        // set hit direction of sword for sword hitbox
+        this.hitDirection = direction
+        this.hitbox()
+
         setTimeout( ()=>{
             this.finishSlash = true
             if(this.element.src === `${this.ASSET_ROOT}/idle.gif`){
@@ -116,36 +120,43 @@ class PlayableCharacter extends Character{
             }else if(idleCheck){
                 this.element.src = `${this.ASSET_ROOT}/idle.gif`
             }
+            this.hitDirection = null
         },200)
     }
 
     hitbox(direction){
+        let leftBorder = null
+        let rightBorder = null
+        let topBorder = null
+        let bottomBorder = null
+
         if(direction == 'Right'){
-            leftBorder = this.element.style.left + 40
-            rightBorder = this.element.style.left + 75
-            topBorder = this.element.style.bottom + 50
-            bottomBorder = this.element.style.bottom + 15
+            leftBorder = parseInt(this.element.style.left) + 40
+            rightBorder = parseInt(this.element.style.left) + 75
+            topBorder = parseInt(this.element.style.bottom) + 50
+            bottomBorder = parseInt(this.element.style.bottom) + 15
         }
         if(direction == 'Left'){
-            leftBorder = this.element.style.left
-            rightBorder = this.element.style.left + 35
-            topBorder = this.element.style.bottom + 50
-            bottomBorder = this.element.style.bottom + 15
+            leftBorder = parseInt(this.element.style.left)
+            rightBorder = parseInt(this.element.style.left) + 35
+            topBorder = parseInt(this.element.style.bottom) + 50
+            bottomBorder = parseInt(this.element.style.bottom) + 15
         }
         if(direction == 'Up'){
-            leftBorder = this.element.style.left
-            rightBorder = this.element.style.left + 75
-            topBorder = this.element.style.bottom + 75
-            bottomBorder = this.element.style.bottom + 50
+            leftBorder = parseInt(this.element.style.left)
+            rightBorder = parseInt(this.element.style.left) + 75
+            topBorder = parseInt(this.element.style.bottom) + 75
+            bottomBorder = parseInt(this.element.style.bottom) + 50
         }
         if(direction == 'Down'){
-            leftBorder = this.element.style.left
-            rightBorder = this.element.style.left + 75
-            topBorder = this.element.style.bottom + 35
-            bottomBorder = this.element.style.bottom
+            leftBorder = parseInt(this.element.style.left)
+            rightBorder = parseInt(this.element.style.left) + 75
+            topBorder = parseInt(this.element.style.bottom) + 35
+            bottomBorder = parseInt(this.element.style.bottom)
         }
 
         return [leftBorder,rightBorder,topBorder,bottomBorder]
+
     }
 
 }

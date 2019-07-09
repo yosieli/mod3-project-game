@@ -18,5 +18,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     player = new PlayableCharacter(30,30)
     document.body.append(player.element)
 
+    setInterval( ()=>{
+        fakemonster.hurt(player)
+    },20)
+
 })
  

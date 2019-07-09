@@ -1,5 +1,7 @@
 //class to make characters
 class Character{
+    
+    static all=[]
 
     //initialize for javascript
     constructor(x, y, ROOT_URL){
@@ -8,7 +10,6 @@ class Character{
         this.element.style.width = '75px'
         this.element.style.height = '75px'
         this.element.style.position = 'absolute'
-        this.element.style.border = "solid 2px black"
 
         this.element.src = `${this.ASSET_ROOT}/idle.gif`
         this.element.direction = [null,null]
@@ -17,8 +18,8 @@ class Character{
         this.element.style.left = x + 'px'
         this.element.style.bottom = y +'px'
 
-        //figure out how to make this work
-        // Character.all.push(this)
+        //keeps track of all characters
+        Character.all.push(this)
 
         setInterval( ()=>{
             // character.style.left / bottom are both strings: "0px"
@@ -99,15 +100,6 @@ class Character{
         }else if(this.element.direction[1]=='right'){
             this.element.src = `${this.ASSET_ROOT}/runRight.gif`
         }
-    }
-
-    hurtbox(){
-        leftBorder = this.element.style.left + 20
-        rightBorder = this.element.style.left + 55
-        topBorder = this.element.style.bottom + 75
-        bottomBorder = this.element.style.bottom
-
-        return [leftBorder,rightBorder,topBorder,bottomBorder]
     }
 
 }
