@@ -20,19 +20,21 @@ https://cartoonsmart.com/pixel-art-collection-royalty-free-game-art/
 create tests
 -need 3 tests minimum
 
-hitbox for monsters
-hurtbox for player
-health bar for player
+connect to database
+-patch done
+-get(get game when starting)
+-post(new game)
 
-victory screen if level is beaten
-game over screen if player dies
+ask to save after beating each level
 
 pause functionality
 quit button
 
-connect to database
-ask to save after beating each level
+give load and delete options on save files in user page
 
 change animation for monsters
 
 add bosses
+
+#Bugs
+when player kills monster and is hit on last health at the same time, player does not do death animation
