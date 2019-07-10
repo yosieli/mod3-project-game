@@ -8,7 +8,6 @@ class Character{
         this.element.style.width = '75px'
         this.element.style.height = '75px'
         this.element.style.position = 'absolute'
-
         this.element.src = `${this.ASSET_ROOT}/idle.gif`
         this.element.direction = [null,null]
         this.speed = 5
@@ -16,8 +15,9 @@ class Character{
         this.element.style.left = x + 'px'
         this.element.style.bottom = y +'px'
 
-        //figure out how to make this work
-        // Character.all.push(this)
+
+        
+        
 
         setInterval( ()=>{
             // character.style.left / bottom are both strings: "0px"
@@ -101,3 +101,5 @@ class Character{
     }
 
 }
+
+
