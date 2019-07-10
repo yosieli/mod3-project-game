@@ -3,7 +3,10 @@ class Monster extends Character{
     constructor(x,y,ROOT_URL){
         super(x,y,ROOT_URL)
 
-        this.health = 5
+        this.healthBar = c('progress')
+        this.healthBar.max = 100
+        this.healthBar.value = 100
+        document.body.append(this.healthBar)
     }
 
     hurtbox(){
@@ -56,8 +59,11 @@ class Monster extends Character{
                 this.speed = 8
                 this.runDown()
             }
-            this.health--
-            console.log(this.health)
+            this.healthBar.value --
+            if(this.healthBar.value == 0){
+                this.element.remove()
+                this.healthBar.remove()
+            }
         },100)
 
         setTimeout(()=>{

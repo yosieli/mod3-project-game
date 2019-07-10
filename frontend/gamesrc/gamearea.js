@@ -2,11 +2,20 @@ class GameArea{
 
     constructor(){
         this.link = s(".home")
+
+        // health bar for bad guys. likely to put this somewhere else later
+        this.progress = c('div')
+        this.progress.id = "myProgress"
+        this.bar = c('div')
+        this.bar.id = "myBar"
+
+        this.progress.append(this.bar)
     }
 
     render(){
         document.body.innerText = ""
         this.link.href = gameLink
+        document.body.append(this.progress)
     }
 
     exitGame(){
