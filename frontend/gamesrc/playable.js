@@ -231,9 +231,7 @@ class PlayableCharacter extends Character{
 
     hitstun(){
         this.hitEffect()
-        if(this.dead){
-            console.log("it's over")
-        }else{
+        if(!this.dead){
             setTimeout(()=>{
                 this.isHurt = false
             },100)
@@ -252,10 +250,6 @@ class PlayableCharacter extends Character{
             if(this.health <= 0){
                 this.dead = true
                 this.stop()
-                this.element.src = "/Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
-                setTimeout(()=>{
-                    alert('Game Over')
-                },3000)
             }else{
                 this.element.style.animation = 'shake 1s'
                 this.element.style.backgroundColor = "#FFA50070"

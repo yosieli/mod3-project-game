@@ -13,13 +13,15 @@ class Level{
         tracker.innerText = `Time: ${Level.time}`
         document.body.append(tracker)
 
-        //victory div box
-        let victory = c('div')
-        victory.id = "victory-box"
-        let victoryText = c('h1')
-        victoryText.id = "victory-text"
-        victoryText.innerText = "YOU WIN"
-        victory.append(victoryText)
+        //status div box for if player wins or dies
+        let statusBox = c('div')
+        statusBox.id = "status-box"
+        let statusText = c('h1')
+        statusText.id = "status-text"
+        statusBox.append(statusText)
+
+        
+        
 
         //resets monster health bar positions
         Monster.healthPosition = 5
@@ -51,12 +53,24 @@ class Level{
             if(Level.winMonster){
                 //stops player from moving
                 player.dead = true
-                console.log(Level.time)
-                document.body.append(victory)
+
+                //puts status box with victory
+                statusText.innerText = "YOU WIN"
+                document.body.append(statusBox)
 
                 //ends setInterval
                 clearInterval(interval)
+            }else if(player.dead){
+                player.element.src = "/Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
+                setTimeout(()=>{
+                    //puts status box with defeat
+                    statusText.innerText = "Game Over"
+                    document.body.append(statusBox)
+                },3000)
+                //ends setInterval
+                clearInterval(interval)
             }
+
         },20)
     }
 
