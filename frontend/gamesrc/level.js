@@ -52,9 +52,14 @@ class Level{
         let interval = setInterval(()=>{
             Level.time ++
             tracker.innerText = `Time: ${Level.time}`
+            let monsterCheck = Monster.all.filter( (monster)=> monster.dead )
+            if(monsterCheck.length == Monster.all.length){
+                Level.winMonster = true
+            }
             if(Level.winMonster){
                 //stops player from moving
                 player.dead = true
+                player.invincible = true
 
                 //puts status box with victory
                 statusText.innerText = "YOU WIN"

@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     gameArea.render()
 
     //loads the level
-    new Level()
+    new Level(3)
 
 })
  

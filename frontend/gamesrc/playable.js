@@ -10,7 +10,6 @@ class PlayableCharacter extends Character{
         PlayableCharacter.all.push(this)
 
         //health for player
-        this.dead = false
         this.health = 5
         this.healthBar = c('img')
         this.healthBar.id = "player-health"
@@ -171,27 +170,27 @@ class PlayableCharacter extends Character{
 
         if(direction == 'Right'){
             leftBorder = parseInt(this.element.style.left) + 40
-            rightBorder = parseInt(this.element.style.left) + 75
-            topBorder = parseInt(this.element.style.bottom) + 50
-            bottomBorder = parseInt(this.element.style.bottom) + 15
+            rightBorder = parseInt(this.element.style.left) + 90
+            topBorder = parseInt(this.element.style.bottom) + 60
+            bottomBorder = parseInt(this.element.style.bottom) + 10
         }
         if(direction == 'Left'){
-            leftBorder = parseInt(this.element.style.left)
+            leftBorder = parseInt(this.element.style.left) - 15
             rightBorder = parseInt(this.element.style.left) + 35
-            topBorder = parseInt(this.element.style.bottom) + 50
-            bottomBorder = parseInt(this.element.style.bottom) + 15
+            topBorder = parseInt(this.element.style.bottom) + 60
+            bottomBorder = parseInt(this.element.style.bottom) + 10
         }
         if(direction == 'Up'){
             leftBorder = parseInt(this.element.style.left)
             rightBorder = parseInt(this.element.style.left) + 75
-            topBorder = parseInt(this.element.style.bottom) + 75
+            topBorder = parseInt(this.element.style.bottom) + 90
             bottomBorder = parseInt(this.element.style.bottom) + 50
         }
         if(direction == 'Down'){
             leftBorder = parseInt(this.element.style.left)
             rightBorder = parseInt(this.element.style.left) + 75
             topBorder = parseInt(this.element.style.bottom) + 35
-            bottomBorder = parseInt(this.element.style.bottom)
+            bottomBorder = parseInt(this.element.style.bottom) - 15
         }
 
         return [leftBorder,rightBorder,topBorder,bottomBorder]
@@ -201,7 +200,7 @@ class PlayableCharacter extends Character{
     hurtbox(){
         let leftBorder = parseInt(this.element.style.left) + 30
         let rightBorder = parseInt(this.element.style.left) + 45
-        let topBorder = parseInt(this.element.style.bottom) + 65
+        let topBorder = parseInt(this.element.style.bottom) + 60
         let bottomBorder = parseInt(this.element.style.bottom) + 20
 
         if(this.invincible){

@@ -10,8 +10,8 @@ class Monster extends Character{
         //makes health bar for each monster
         this.healthBar = c('progress')
         //start with 100 hp
-        this.healthBar.max = 40
-        this.healthBar.value = 40
+        this.healthBar.max = 100
+        this.healthBar.value = 100
 
         //puts to top right in order
         this.healthBar.style.top = Monster.healthPosition
@@ -27,52 +27,52 @@ class Monster extends Character{
         this.speed = 2
 
         //makes monster go in random directions every second
-        // setInterval(()=>{
+        setInterval(()=>{
 
-        //     const left = parseInt(this.element.style.left)
-        //     const bottom = parseInt(this.element.style.bottom)
+            const left = parseInt(this.element.style.left)
+            const bottom = parseInt(this.element.style.bottom)
 
-        //     //picks random direction each interval
-        //     const directionsArray = ['Up','Down','Left','Right']
-        //     let rand = directionsArray[Math.floor(Math.random() * directionsArray.length)]
+            //picks random direction each interval
+            const directionsArray = ['Up','Down','Left','Right']
+            let rand = directionsArray[Math.floor(Math.random() * directionsArray.length)]
 
-        //     if(rand === 'Up'){
-        //         this.element.direction = [null,null]
-        //         //boolean to check if monster is running against a wall
-        //         if ( document.documentElement.clientHeight >= (bottom+240) ){
-        //             this.runUp()
-        //         }else{
-        //             this.runDown()
-        //         }
-        //     }
-        //     if(rand === 'Down'){
-        //         this.element.direction = [null,null]
-        //         if ( bottom - 10 > 0 ){
-        //             this.runDown()
-        //         }else{
-        //             this.runUp()
-        //         }
+            if(rand === 'Up'){
+                this.element.direction = [null,null]
+                //boolean to check if monster is running against a wall
+                if ( document.documentElement.clientHeight >= (bottom+240) ){
+                    this.runUp()
+                }else{
+                    this.runDown()
+                }
+            }
+            if(rand === 'Down'){
+                this.element.direction = [null,null]
+                if ( bottom - 10 > 0 ){
+                    this.runDown()
+                }else{
+                    this.runUp()
+                }
                 
-        //     }
-        //     if(rand === 'Left'){
-        //         this.element.direction = [null,null]
-        //         if( left+10 > 0 ){
-        //             this.runLeft()
-        //         }else{
-        //             this.runRight()
-        //         }
-        //     }
-        //     if(rand === 'Right'){
-        //         this.element.direction = [null,null]
-        //         if( document.documentElement.clientWidth >= (left+80) ){
-        //             this.runRight()
-        //         }else{
-        //             this.runLeft()
-        //         }
+            }
+            if(rand === 'Left'){
+                this.element.direction = [null,null]
+                if( left+10 > 0 ){
+                    this.runLeft()
+                }else{
+                    this.runRight()
+                }
+            }
+            if(rand === 'Right'){
+                this.element.direction = [null,null]
+                if( document.documentElement.clientWidth >= (left+80) ){
+                    this.runRight()
+                }else{
+                    this.runLeft()
+                }
                 
-        //     }
+            }
 
-        // },1000)
+        },1000)
 
 
 
@@ -87,8 +87,8 @@ class Monster extends Character{
     hitbox(){
         let leftBorder = parseInt(this.element.style.left) + 25
         let rightBorder = parseInt(this.element.style.left) + 50
-        let topBorder = parseInt(this.element.style.bottom) + 65
-        let bottomBorder = parseInt(this.element.style.bottom) + 10
+        let topBorder = parseInt(this.element.style.bottom) + 60
+        let bottomBorder = parseInt(this.element.style.bottom) + 20
 
         return [leftBorder,rightBorder,topBorder,bottomBorder]
     }
@@ -130,6 +130,18 @@ class Monster extends Character{
         //shows when monster is hit
         this.element.style.backgroundColor = "#FF000080"
 
+        //decreases health
+        this.healthBar.value --
+        this.healthCount --
+        this.healthBar.setAttribute('health-count',`${this.healthCount}`)
+
+        //if health reaches 0, monster is removed
+        if(this.healthBar.value <= 0){
+            this.element.remove()
+            this.healthBar.remove()
+            this.dead = true  
+        }
+
         //makes monster run in direction he was hit
         setTimeout(()=>{
             this.element.style.backgroundColor = "transparent"
@@ -150,25 +162,6 @@ class Monster extends Character{
                 this.runDown()
             }
 
-            //decreases health
-            this.healthBar.value --
-            this.healthCount --
-            this.healthBar.setAttribute('health-count',`${this.healthCount}`)
-
-            //if health reaches 0, monster is removed
-            if(this.healthBar.value <= 0){
-                this.element.remove()
-                this.healthBar.remove()
-                //gets index of the dead monster in array and gets rid of it
-                let monsterIndex = Monster.all.indexOf(this)
-                Monster.all.splice(monsterIndex,1)
-                setTimeout(()=>{
-                    if(Monster.all.length == 0){
-                        Level.winMonster = true
-                    }
-                },100)
-                
-            }
         },100)
 
         //puts speed back to normal and stops monster for a moment

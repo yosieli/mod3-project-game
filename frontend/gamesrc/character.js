@@ -18,6 +18,9 @@ class Character{
         this.element.style.left = x + 'px'
         this.element.style.bottom = y +'px'
 
+        //checks if character is dead or not
+        this.dead = false
+
         //keeps track of all characters
         Character.all.push(this)
 
