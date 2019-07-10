@@ -1,12 +1,24 @@
 class Monster extends Character{
+    static healthPosition = 5
 
     constructor(x,y,ROOT_URL){
         super(x,y,ROOT_URL)
 
+        //makes health bar for each monster
         this.healthBar = c('progress')
+        //start with 100 hp
         this.healthBar.max = 100
         this.healthBar.value = 100
+
+        //puts to top right in order
+        this.healthBar.style.top = Monster.healthPosition
+
+        //labels the health
+        this.healthCount = 100
+        this.healthBar.setAttribute('health-count',`${this.healthCount}`)
         document.body.append(this.healthBar)
+
+        Monster.healthPosition = Monster.healthPosition + 20
     }
 
     hurtbox(){
@@ -60,6 +72,9 @@ class Monster extends Character{
                 this.runDown()
             }
             this.healthBar.value --
+            this.healthCount --
+            this.healthBar.setAttribute('health-count',`${this.healthCount}`)
+
             if(this.healthBar.value == 0){
                 this.element.remove()
                 this.healthBar.remove()

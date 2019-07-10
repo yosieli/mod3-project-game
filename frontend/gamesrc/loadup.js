@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     fakemonster2 = new Monster(400,500,'file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight')
     document.body.append(fakemonster.element,fakemonster2.element)
     
-    player = new PlayableCharacter(30,30)
+    player = new PlayableCharacter(30,60)
     document.body.append(player.element)
 
     setInterval( ()=>{

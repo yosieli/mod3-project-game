@@ -42,13 +42,13 @@ class Character{
             }
     
             if(this.element.direction[0] == 'up'){
-                if ( document.documentElement.clientHeight >= (bottom+80) ){
+                if ( document.documentElement.clientHeight >= (bottom+240) ){
                     this.element.style.bottom = `${bottom+this.speed}px`;
                 }
             }
     
             if(this.element.direction[0] == 'down'){
-                if ( bottom-5 > 0 ){
+                if ( bottom - 10 > 0 ){
                     this.element.style.bottom = `${bottom-this.speed}px`;
                 }
             }
