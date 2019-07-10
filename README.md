@@ -11,3 +11,28 @@ gifs made and edited with https://ezgif.com/
 
 skeleton sprite on death animation from Valdrec on Deviant Art
 https://www.deviantart.com/valdrec/art/Skeleton-Sprite-286341831
+
+game background
+https://cartoonsmart.com/pixel-art-collection-royalty-free-game-art/
+
+#Goals
+
+create tests
+-need 3 tests minimum
+
+hitbox for monsters
+hurtbox for player
+health bar for player
+
+victory screen if level is beaten
+game over screen if player dies
+
+pause functionality
+quit button
+
+connect to database
+ask to save after beating each level
+
+change animation for monsters
+
+add bosses

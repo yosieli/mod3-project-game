@@ -1,5 +1,7 @@
 //class to make characters
 class Character{
+    
+    static all=[]
 
     //initialize for javascript
     constructor(x, y, ROOT_URL){
@@ -15,9 +17,8 @@ class Character{
         this.element.style.left = x + 'px'
         this.element.style.bottom = y +'px'
 
-
-        
-        
+        //keeps track of all characters
+        Character.all.push(this)
 
         setInterval( ()=>{
             // character.style.left / bottom are both strings: "0px"
@@ -40,13 +41,13 @@ class Character{
             }
     
             if(this.element.direction[0] == 'up'){
-                if ( document.documentElement.clientHeight >= (bottom+80) ){
+                if ( document.documentElement.clientHeight >= (bottom+240) ){
                     this.element.style.bottom = `${bottom+this.speed}px`;
                 }
             }
     
             if(this.element.direction[0] == 'down'){
-                if ( bottom-5 > 0 ){
+                if ( bottom - 10 > 0 ){
                     this.element.style.bottom = `${bottom-this.speed}px`;
                 }
             }

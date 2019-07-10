@@ -12,8 +12,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     gameArea = new GameArea()
     gameArea.render()
 
-    player = new PlayableCharacter(30,30)
-    document.body.append(player.element)
+    //loads player
+    player = new PlayableCharacter(30,60)
+    player.render()
+
+    //loads the level
+    new Level()
 
     let npc = new Monster(300,300,'./animations/monster')
     document.body.append(npc.element)
