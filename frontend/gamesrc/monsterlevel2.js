@@ -1,4 +1,0 @@
-class MonsterBig  extends Character{
-
-
-}
