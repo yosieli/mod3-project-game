@@ -3,7 +3,7 @@ class GameArea{
     constructor(){
         this.link = s(".home")
 
-        // health bar for bad guys. likely to put this somewhere else later
+        // health bar for player (will for sure move this. also did not give it functionality yet)
         this.progress = c('div')
         this.progress.id = "myProgress"
         this.bar = c('div')
