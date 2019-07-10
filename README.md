@@ -16,15 +16,17 @@ game background
 https://cartoonsmart.com/pixel-art-collection-royalty-free-game-art/
 
 #Goals
-
+----
 create tests
 -need 3 tests minimum
 
 connect to database
--patch done (does not patch specific savefile yet. just first savefile)
--get(get game when starting)
 -post(new game)
 
+connect index.html and game.html
+after beating a level, gives option to load next level
+
+-----
 ask to save after beating each level
 
 pause functionality
