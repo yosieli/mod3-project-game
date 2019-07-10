@@ -4,9 +4,21 @@ class PlayableCharacter extends Character{
 
     constructor(x,y){
 
+        //used full path so animation comparisons will work
         super(x,y,'file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight')
 
         PlayableCharacter.all.push(this)
+
+        //health for player
+        this.dead = false
+        this.health = 5
+        this.healthBar = c('img')
+        this.healthBar.id = "player-health"
+        this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
+
+        //determines if player is invincible/hurt
+        this.invincible = false
+        this.isHurt = false
 
         //will slash up on game start when slash button is pressed
         this.idleDirection = 'Up'
@@ -20,25 +32,28 @@ class PlayableCharacter extends Character{
 
             //save downkey to check how to stop on up keys
             this.downkey = e.key
+            if(this.dead){
+                this.downkey = null
+            }
             
 
             if(event.repeat){
                 return
             }
 
-            if(e.key == 'ArrowUp'){
+            if(this.downkey == 'ArrowUp'){
                 this.runUp()
             }
-            if(e.key == 'ArrowDown'){
+            if(this.downkey == 'ArrowDown'){
                 this.runDown()
             }
-            if(e.key == 'ArrowLeft'){
+            if(this.downkey == 'ArrowLeft'){
                 this.runLeft()
             }
-            if(e.key == 'ArrowRight'){
+            if(this.downkey == 'ArrowRight'){
                 this.runRight()
             }
-            if(e.key == ' '){
+            if(this.downkey == ' '){
                 this.slash()
             }
         })
@@ -46,17 +61,20 @@ class PlayableCharacter extends Character{
         //stops if no key is pressed
         document.addEventListener('keyup',(e)=>{
 
+            
             this.upkey = e.key
-
+            if(this.dead){
+                this.upkey = null
+            }
             // logic to move in diagonal directions
             // also, if left/right is pressed down before right/left is lifted up, won't stop the character
-            if( (e.key == 'ArrowLeft' && this.downkey != 'ArrowRight') || (e.key == 'ArrowRight' && this.downkey != 'ArrowLeft') ){
+            if( (this.upkey == 'ArrowLeft' && this.downkey != 'ArrowRight') || (this.upkey == 'ArrowRight' && this.downkey != 'ArrowLeft') ){
                 if(this.element.direction[0] == null){
                     this.stop()
                 }else{
                     this.stop_x()
                 }
-            }else if( (e.key == 'ArrowUp' && this.downkey != 'ArrowDown') || (e.key == 'ArrowDown' && this.downkey != 'ArrowUp') ){
+            }else if( (this.upkey == 'ArrowUp' && this.downkey != 'ArrowDown') || (this.upkey == 'ArrowDown' && this.downkey != 'ArrowUp') ){
                 if(this.element.direction[1] == null){
                     this.stop()
                 }else{
@@ -65,8 +83,8 @@ class PlayableCharacter extends Character{
             }
 
             //checks for animation after slash is complete
-            if(e.key !== ' '){
-                this.idleDirection = e.key.slice(5)
+            if(this.upkey !== ' ' && this.upkey){
+                this.idleDirection = this.upkey.slice(5)
                 this.slashCheck = false
             }
 
@@ -75,6 +93,7 @@ class PlayableCharacter extends Character{
 
     render(){
         document.body.append(this.element)
+        document.body.append(this.healthBar)
     }
 
 
@@ -177,6 +196,77 @@ class PlayableCharacter extends Character{
 
         return [leftBorder,rightBorder,topBorder,bottomBorder]
 
+    }
+
+    hurtbox(){
+        let leftBorder = parseInt(this.element.style.left) + 30
+        let rightBorder = parseInt(this.element.style.left) + 45
+        let topBorder = parseInt(this.element.style.bottom) + 65
+        let bottomBorder = parseInt(this.element.style.bottom) + 20
+
+        if(this.invincible){
+            return [null,null,null,null]
+        }else{
+            return [leftBorder,rightBorder,topBorder,bottomBorder]
+        }
+    }
+
+    hurt(monster){
+        let monsterLeft = monster.hitbox()[0]
+        let monsterRight = monster.hitbox()[1]
+        let monsterUp = monster.hitbox()[2]
+        let monsterDown = monster.hitbox()[3]
+
+        let selfLeft = this.hurtbox()[0]
+        let selfRight = this.hurtbox()[1]
+        let selfUp = this.hurtbox()[2]
+        let selfDown = this.hurtbox()[3]
+
+        if(monsterRight >= selfLeft && monsterLeft <= selfRight){
+            if(monsterUp >= selfDown && monsterDown <= selfUp){
+                this.hitstun()
+            } 
+        }
+    }
+
+    hitstun(){
+        this.hitEffect()
+        if(this.dead){
+            console.log("it's over")
+        }else{
+            setTimeout(()=>{
+                this.isHurt = false
+            },100)
+            setTimeout(()=>{
+                this.hitEffect(false)
+            },1000)
+        }
+        
+    }
+
+    hitEffect(over = true){
+        if(over){
+            this.health --
+            this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
+            this.invincible = true
+            if(this.health <= 0){
+                this.dead = true
+                this.stop()
+                this.element.src = "/Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
+                setTimeout(()=>{
+                    alert('Game Over')
+                },3000)
+            }else{
+                this.element.style.animation = 'shake 1s'
+                this.element.style.backgroundColor = "#FFA50070"
+                this.isHurt = true
+            }
+            
+        }else{
+            this.element.style.animation = 'none'
+            this.element.style.backgroundColor = "transparent"
+            this.invincible = false
+        }
     }
 
 }

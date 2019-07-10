@@ -12,12 +12,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     gameArea = new GameArea()
     gameArea.render()
 
-    //loads player
-    player = new PlayableCharacter(30,60)
-    player.render()
-
     //loads the level
-    new Level()
+    new Level(3)
 
 })
  
