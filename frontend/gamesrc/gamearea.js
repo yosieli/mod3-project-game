@@ -9,9 +9,6 @@ class GameArea{
         this.bar = c('div')
         this.bar.id = "myBar"
 
-        //resets monster health bar positions
-        Monster.healthPosition = 5
-
         this.progress.append(this.bar)
     }
 

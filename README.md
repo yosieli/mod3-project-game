@@ -11,3 +11,6 @@ gifs made and edited with https://ezgif.com/
 
 skeleton sprite on death animation from Valdrec on Deviant Art
 https://www.deviantart.com/valdrec/art/Skeleton-Sprite-286341831
+
+game background
+https://cartoonsmart.com/pixel-art-collection-royalty-free-game-art/
