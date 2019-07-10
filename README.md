@@ -21,7 +21,7 @@ create tests
 -need 3 tests minimum
 
 connect to database
--patch done
+-patch done (does not patch specific savefile yet. just first savefile)
 -get(get game when starting)
 -post(new game)
 
@@ -35,6 +35,3 @@ give load and delete options on save files in user page
 change animation for monsters
 
 add bosses
-
-#Bugs
-when player kills monster and is hit on last health at the same time, player does not do death animation

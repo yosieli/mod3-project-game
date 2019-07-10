@@ -5,11 +5,11 @@ class Level{
     //keeps track of time
     static time
 
-    constructor(level = 1, time = 0){
+    constructor(savefile){
         //set level to be called later
-        this.level = level
+        this.level = savefile.level
         //sets start time
-        Level.time = time
+        Level.time = savefile.time
         let tracker = c('h3')
         tracker.id = "time-tracker"
         tracker.innerText = `Time: ${Level.time}`
@@ -30,10 +30,11 @@ class Level{
 
         //loads player
         let player = new PlayableCharacter(30,60)
+        player.health = savefile.health
         player.render()
 
         //creates monsters based on level number
-        for (let i = 0; i < (level); i++) {
+        for (let i = 0; i < (this.level); i++) {
             //used full path so animation comparisons will work
             let fakemonster = new Monster(500,500,'file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight')
             fakemonster.render()
@@ -56,10 +57,19 @@ class Level{
             if(monsterCheck.length == Monster.all.length){
                 Level.winMonster = true
             }
-            if(Level.winMonster){
+            if(player.dead){
+                player.element.src = "/Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
+                setTimeout(()=>{
+                    //puts status box with defeat
+                    statusText.innerText = "Game Over"
+                    document.body.append(statusBox)
+                },3000)
+                //ends setInterval
+                clearInterval(interval)
+            }else if(Level.winMonster){
                 //stops player from moving
-                player.dead = true
                 player.invincible = true
+                player.stop()
 
                 //puts status box with victory
                 statusText.innerText = "YOU WIN"
@@ -70,15 +80,6 @@ class Level{
 
                 //ends setInterval
                 clearInterval(interval)
-            }else if(player.dead){
-                player.element.src = "/Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
-                setTimeout(()=>{
-                    //puts status box with defeat
-                    statusText.innerText = "Game Over"
-                    document.body.append(statusBox)
-                },3000)
-                //ends setInterval
-                clearInterval(interval)
             }
 
         },20)
@@ -86,7 +87,7 @@ class Level{
 
     save(player){
         //fetch request to save
-        fetch(`http://localhost:3000/savefiles/1`,{ //need savefile ID
+        fetch(`http://localhost:3000/savefiles/${savefile.id}`,{
             method:'PATCH',
             headers: {
                 "Content-Type":'application/json',

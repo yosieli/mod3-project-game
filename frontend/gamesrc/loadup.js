@@ -4,16 +4,9 @@ let c = (element) => document.createElement(element)
 const styleLink = './style.css'
 const gameLink = './game.css'
 
-//put these in index.js later
-let gameArea
-
 document.addEventListener('DOMContentLoaded',()=>{
 
-    gameArea = new GameArea()
-    gameArea.render()
-
-    //loads the level
-    new Level(3)
+    gameArea = new GameArea(1)
 
 })
  

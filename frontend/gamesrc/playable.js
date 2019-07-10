@@ -17,7 +17,6 @@ class PlayableCharacter extends Character{
 
         //determines if player is invincible/hurt
         this.invincible = false
-        this.isHurt = false
 
         //will slash up on game start when slash button is pressed
         this.idleDirection = 'Up'
@@ -140,26 +139,28 @@ class PlayableCharacter extends Character{
         this.hitDirection = direction
         this.hitbox()
 
-        setTimeout( ()=>{
-            // boolean to say slash animation is finished
-            this.finishSlash = true
-
-            // put idle checks for if the player was idle before slash animation starts
-            if(this.element.src === `${this.ASSET_ROOT}/idle.gif`){
-                idleCheck = true
-            }
-
-            //checks if player moved direction before slash animation was complete
-            if(this.slashCheck && !idleCheck){
-                this.element.src = `${this.ASSET_ROOT}/run${direction}.gif`
-            // checks if player stopped moving before slash animation was complete
-            }else if(idleCheck){
-                this.element.src = `${this.ASSET_ROOT}/idle.gif`
-            }
-
-            //turns off hitbox at the end of the 200 milliseconds
-            this.hitDirection = null
-        },200)
+        if(!this.dead){
+            setTimeout( ()=>{
+                // boolean to say slash animation is finished
+                this.finishSlash = true
+                
+                // put idle checks for if the player was idle before slash animation starts
+                if(this.element.src === `${this.ASSET_ROOT}/idle.gif`){
+                    idleCheck = true
+                }
+                
+                //checks if player moved direction before slash animation was complete
+                if(this.slashCheck && !idleCheck && !this.dead){
+                    this.element.src = `${this.ASSET_ROOT}/run${direction}.gif`
+                    // checks if player stopped moving before slash animation was complete
+                }else if(idleCheck && !this.dead){
+                    this.element.src = `${this.ASSET_ROOT}/idle.gif`
+                }
+                
+                //turns off hitbox at the end of the 200 milliseconds
+                this.hitDirection = null
+            },200)
+        }
     }
 
     hitbox(direction){
@@ -232,9 +233,6 @@ class PlayableCharacter extends Character{
         this.hitEffect()
         if(!this.dead){
             setTimeout(()=>{
-                this.isHurt = false
-            },100)
-            setTimeout(()=>{
                 this.hitEffect(false)
             },1000)
         }
@@ -252,7 +250,6 @@ class PlayableCharacter extends Character{
             }else{
                 this.element.style.animation = 'shake 1s'
                 this.element.style.backgroundColor = "#FFA50070"
-                this.isHurt = true
             }
             
         }else{
