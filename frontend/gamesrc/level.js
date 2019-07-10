@@ -6,6 +6,8 @@ class Level{
     static time
 
     constructor(level = 1, time = 0){
+        //set level to be called later
+        this.level = level
         //sets start time
         Level.time = time
         let tracker = c('h3')
@@ -58,6 +60,9 @@ class Level{
                 statusText.innerText = "YOU WIN"
                 document.body.append(statusBox)
 
+                //saves game
+                this.save(player)
+
                 //ends setInterval
                 clearInterval(interval)
             }else if(player.dead){
@@ -74,7 +79,22 @@ class Level{
         },20)
     }
 
-    save(){
+    save(player){
         //fetch request to save
+        fetch(`http://localhost:3000/savefiles/1`,{ //need savefile ID
+            method:'PATCH',
+            headers: {
+                "Content-Type":'application/json',
+                'Accept':'application/json'
+            },
+            body: JSON.stringify({
+                level: (this.level+1),
+                time: Level.time,
+                health: player.health
+            })
+        })
+        .then(response => response.json())
+        .then(result => console.log(result))
+
     }
 }

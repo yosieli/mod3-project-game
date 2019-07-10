@@ -21,6 +21,10 @@ create tests
 -need 3 tests minimum
 
 connect to database
+-patch done
+-get(get game when starting)
+-post(new game)
+
 ask to save after beating each level
 
 pause functionality
