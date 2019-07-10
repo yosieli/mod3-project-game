@@ -7,10 +7,15 @@ class PlayableCharacter extends Character{
         super(x,y,'file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight')
 
         PlayableCharacter.all.push(this)
+
+        //will slash up on game start when slash button is pressed
+        this.idleDirection = 'Up'
+
         //recording keyboard inputs
         document.addEventListener('keydown', (e)=> {
 
             //checks for animation after slash is complete
+            //this ensures player is not stuck in slash animation when changing direction
             this.slashCheck = false
 
             //save downkey to check how to stop on up keys
@@ -43,7 +48,8 @@ class PlayableCharacter extends Character{
 
             this.upkey = e.key
 
-            //logic so that if left/right is pressed down before right/left is lifted up, won't stop the character
+            // logic to move in diagonal directions
+            // also, if left/right is pressed down before right/left is lifted up, won't stop the character
             if( (e.key == 'ArrowLeft' && this.downkey != 'ArrowRight') || (e.key == 'ArrowRight' && this.downkey != 'ArrowLeft') ){
                 if(this.element.direction[0] == null){
                     this.stop()
@@ -65,6 +71,10 @@ class PlayableCharacter extends Character{
             }
 
         })
+    }
+
+    render(){
+        document.body.append(this.element)
     }
 
 
@@ -97,12 +107,14 @@ class PlayableCharacter extends Character{
     slashanimation(direction){
         this.slashCheck = true
 
-        //put idle checks for if the play was idle before/after slash animation starts
+        // put idle checks for if the player was idle before slash animation starts
         let idleCheck = false
         if(this.element.src === `${this.ASSET_ROOT}/idle.gif`){
             idleCheck = true
             direction = this.idleDirection
         }
+
+        // boolean to say that slash animation is not finished
         this.finishSlash = false
         this.element.src = `${this.ASSET_ROOT}/slash${direction}.gif`
 
@@ -111,15 +123,23 @@ class PlayableCharacter extends Character{
         this.hitbox()
 
         setTimeout( ()=>{
+            // boolean to say slash animation is finished
             this.finishSlash = true
+
+            // put idle checks for if the player was idle before slash animation starts
             if(this.element.src === `${this.ASSET_ROOT}/idle.gif`){
                 idleCheck = true
             }
+
+            //checks if player moved direction before slash animation was complete
             if(this.slashCheck && !idleCheck){
                 this.element.src = `${this.ASSET_ROOT}/run${direction}.gif`
+            // checks if player stopped moving before slash animation was complete
             }else if(idleCheck){
                 this.element.src = `${this.ASSET_ROOT}/idle.gif`
             }
+
+            //turns off hitbox at the end of the 200 milliseconds
             this.hitDirection = null
         },200)
     }

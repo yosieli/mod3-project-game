@@ -19,6 +19,8 @@ class Monster extends Character{
         //labels the health
         this.healthCount = 100
         this.healthBar.setAttribute('health-count',`${this.healthCount}`)
+
+        //lowers next health bar for next monster created
         Monster.healthPosition = Monster.healthPosition + 20
 
         //speed is slower than normal when walking around
@@ -30,11 +32,13 @@ class Monster extends Character{
             const left = parseInt(this.element.style.left)
             const bottom = parseInt(this.element.style.bottom)
 
+            //picks random direction each interval
             const directionsArray = ['Up','Down','Left','Right']
             let rand = directionsArray[Math.floor(Math.random() * directionsArray.length)]
 
             if(rand === 'Up'){
                 this.element.direction = [null,null]
+                //boolean to check if monster is running against a wall
                 if ( document.documentElement.clientHeight >= (bottom+240) ){
                     this.runUp()
                 }else{
@@ -110,7 +114,10 @@ class Monster extends Character{
 
     hitstun(direction){
 
+        //shows when monster is hit
         this.element.style.backgroundColor = "red"
+
+        //makes monster run in direction he was hit
         setTimeout(()=>{
             this.element.style.backgroundColor = "transparent"
             if(direction == 'Right'){
@@ -129,16 +136,20 @@ class Monster extends Character{
                 this.speed = 8
                 this.runDown()
             }
+
+            //decreases health
             this.healthBar.value --
             this.healthCount --
             this.healthBar.setAttribute('health-count',`${this.healthCount}`)
 
-            if(this.healthBar.value == 0){
+            //if health reaches 0, monster is removed
+            if(this.healthBar.value <= 0){
                 this.element.remove()
                 this.healthBar.remove()
             }
         },100)
 
+        //puts speed back to normal and stops monster for a moment
         setTimeout(()=>{
             this.speed = 2
             this.stop()

@@ -8,7 +8,6 @@ class GameArea{
         this.progress.id = "myProgress"
         this.bar = c('div')
         this.bar.id = "myBar"
-
         this.progress.append(this.bar)
     }
 

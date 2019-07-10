@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     //loads player
     player = new PlayableCharacter(30,60)
-    document.body.append(player.element)
+    player.render()
 
     //loads the level
     new Level()
