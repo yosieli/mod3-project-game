@@ -19,6 +19,9 @@ https://cartoonsmart.com/pixel-art-collection-royalty-free-game-art/
 ----
 create tests
 -need 3 tests minimum
+    -high scores are in order
+    -save file is created/updated to database on fetches
+    -
 
 connect to database
 -post(new game)
@@ -37,3 +40,8 @@ give load and delete options on save files in user page
 change animation for monsters
 
 add bosses
+
+highscores only go to top 10/20
+
+#Bugs
+sword animation does not stay if direction is changed

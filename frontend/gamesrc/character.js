@@ -21,6 +21,9 @@ class Character{
         //checks if character is dead or not
         this.dead = false
 
+        //stores an animation to use after it finishes slashing something
+        this.storedAnimation = null
+
         //keeps track of all characters
         Character.all.push(this)
 
@@ -62,46 +65,85 @@ class Character{
 
     //changes direction and image depending on what key is pressed/let go
     runRight(){
-        this.element.src = `${this.ASSET_ROOT}/runRight.gif`
         this.element.direction[1] = 'right'
+        if(!this.element.src.includes("slash")){
+            this.element.src = `${this.ASSET_ROOT}/runRight.gif`
+        }else{
+            this.storedAnimation =  `${this.ASSET_ROOT}/runRight.gif`
+        }
     }
 
     runLeft(){
-        this.element.src = `${this.ASSET_ROOT}/runLeft.gif`
         this.element.direction[1] = 'left'
+        if(!this.element.src.includes("slash")){
+            this.element.src = `${this.ASSET_ROOT}/runLeft.gif`
+        }else{
+            this.storedAnimation =  `${this.ASSET_ROOT}/runLeft.gif`
+        }
     }
 
     runUp(){
-        this.element.src = `${this.ASSET_ROOT}/runUp.gif`
         this.element.direction[0] = 'up'
+
+        if(!this.element.src.includes("slash")){
+            this.element.src = `${this.ASSET_ROOT}/runUp.gif`
+        }else{
+            this.storedAnimation =  `${this.ASSET_ROOT}/runUp.gif`
+        }
     }
 
     runDown(){
-        this.element.src = `${this.ASSET_ROOT}/runDown.gif`
         this.element.direction[0] = 'down'
+
+        if(!this.element.src.includes("slash")){
+            this.element.src = `${this.ASSET_ROOT}/runDown.gif`
+        }else{
+            this.storedAnimation =  `${this.ASSET_ROOT}/runDown.gif`
+        }
     }
 
     stop(){
-        this.element.src = `${this.ASSET_ROOT}/idle.gif`
         this.element.direction = [null,null]
+        if(!this.element.src.includes("slash")){
+            this.element.src = `${this.ASSET_ROOT}/idle.gif`
+        }else{
+            this.storedAnimation = `${this.ASSET_ROOT}/idle.gif`
+        }
     }
 
     //functions to stop depending on what direction is let go. also makes sure to face correct direction if still walking
     stop_x(){
         this.element.direction[1] = null
         if(this.element.direction[0]=='up'){
-            this.element.src = `${this.ASSET_ROOT}/runUp.gif`
+            if(!this.element.src.includes("slash")){
+                this.element.src = `${this.ASSET_ROOT}/runUp.gif`
+            }else{
+                this.storedAnimation =  `${this.ASSET_ROOT}/runUp.gif`
+            }
         }else if(this.element.direction[0]=='down'){
-            this.element.src = `${this.ASSET_ROOT}/runDown.gif`
+            if(!this.element.src.includes("slash")){
+                this.element.src = `${this.ASSET_ROOT}/runDown.gif`
+            }else{
+                this.storedAnimation =  `${this.ASSET_ROOT}/runDown.gif`
+            }
         }
     }
 
     stop_y(){
         this.element.direction[0] = null
+        
         if(this.element.direction[1]=='left'){
-            this.element.src = `${this.ASSET_ROOT}/runLeft.gif`
+            if(!this.element.src.includes("slash")){
+                this.element.src = `${this.ASSET_ROOT}/runLeft.gif`
+            }else{
+                this.storedAnimation =  `${this.ASSET_ROOT}/runLeft.gif`
+            }
         }else if(this.element.direction[1]=='right'){
-            this.element.src = `${this.ASSET_ROOT}/runRight.gif`
+            if(!this.element.src.includes("slash")){
+                this.element.src = `${this.ASSET_ROOT}/runRight.gif`
+            }else{
+                this.storedAnimation =  `${this.ASSET_ROOT}/runRight.gif`
+            }
         }
     }
 

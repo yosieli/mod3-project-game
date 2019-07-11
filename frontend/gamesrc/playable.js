@@ -19,7 +19,8 @@ class PlayableCharacter extends Character{
         this.invincible = false
 
         //will slash up on game start when slash button is pressed
-        this.idleDirection = 'Up'
+        this.upkey = "ArrowUp"
+        this.idleDirection = 'up'
 
         //recording keyboard inputs
         document.addEventListener('keydown', (e)=> {
@@ -80,7 +81,7 @@ class PlayableCharacter extends Character{
                 }
             }
 
-            //checks for animation after slash is complete
+            //checks for direction to use for slashing when idle
             if(this.upkey !== ' ' && this.upkey){
                 this.idleDirection = this.upkey.slice(5)
                 this.slashCheck = false
@@ -152,9 +153,12 @@ class PlayableCharacter extends Character{
                 //checks if player moved direction before slash animation was complete
                 if(this.slashCheck && !idleCheck && !this.dead){
                     this.element.src = `${this.ASSET_ROOT}/run${direction}.gif`
-                    // checks if player stopped moving before slash animation was complete
+                
+                // checks if player stopped moving before slash animation was complete
                 }else if(idleCheck && !this.dead){
                     this.element.src = `${this.ASSET_ROOT}/idle.gif`
+                }else{
+                    this.element.src = this.storedAnimation
                 }
                 
                 //turns off hitbox at the end of the 200 milliseconds
