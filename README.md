@@ -17,6 +17,8 @@ https://cartoonsmart.com/pixel-art-collection-royalty-free-game-art/
 
 #Goals
 
+add shield option?
+
 add bosses
 
 

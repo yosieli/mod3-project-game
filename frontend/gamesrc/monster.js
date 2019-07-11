@@ -2,8 +2,8 @@ class Monster extends Character{
     static healthPosition = 5
     static all = []
 
-    constructor(x,y,ROOT_URL){
-        super(x,y,ROOT_URL)
+    constructor(x,y){
+        super(x,y,'/Users/flatironschool/Desktop/mod-3_game/frontend/animations/monster')
 
         Monster.all.push(this)
 
