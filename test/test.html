@@ -14,7 +14,20 @@
       mocha.setup('bdd');
       var expect = chai.expect
     </script>
+    <!-- our scripts -->
+    <script src='../frontend/src/index.js'></script>
+    <script src='../frontend/src/sources.js'></script>
+    <script src='../frontend/src/homepage.js'></script>
+    <script src='../frontend/src/userpage.js'></script>
+    <!-- Game scripts -->
+    <script src='../frontend/gamesrc/gamearea.js'></script>
+    <script src='../frontend/gamesrc/character.js'></script>
+    <script src='../frontend/gamesrc/playable.js'></script>
+    <script src='../frontend/gamesrc/monster.js'></script>
+    <script src='../frontend/gamesrc/level.js'></script>
+
     <script src="./test.js"></script>
+    
     <script class="mocha-exec">
       mocha.run();
     </script>

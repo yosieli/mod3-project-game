@@ -184,6 +184,9 @@ class HomePage{
         })
     }
 
+
+    
+
     //arranges save files in order by level and then by time if level is tied
     organizeScores(files){
         files.sort(function(a, b){
