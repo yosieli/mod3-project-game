@@ -5,11 +5,12 @@ class Level{
     //keeps track of time
     static time
 
-    constructor(level = 1, time = 0){
+    constructor(saveFile){
+        this.saveFile = saveFile
         //set level to be called later
-        this.level = level
+        this.level = saveFile.level
         //sets start time
-        Level.time = time
+        Level.time = saveFile.time
         let tracker = c('h3')
         tracker.id = "time-tracker"
         tracker.innerText = `Time: ${Level.time}`
@@ -33,7 +34,7 @@ class Level{
         player.render()
 
         //creates monsters based on level number
-        for (let i = 0; i < (level); i++) {
+        for (let i = 0; i < (this.level); i++) {
             //used full path so animation comparisons will work
             let fakemonster = new Monster(500,500,'/Users/feventsegay/Desktop/mod-3_game/frontend/animations/knight')
             fakemonster.render()
@@ -66,7 +67,7 @@ class Level{
                 //ends setInterval
                 clearInterval(interval)
             }else if(player.dead){
-                player.element.src = "/Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
+                player.element.src = "/Users/feventsegay/Desktop/mod-3_game/frontend/animations/knight/death.gif"
                 setTimeout(()=>{
                     //puts status box with defeat
                     statusText.innerText = "Game Over"
@@ -81,7 +82,7 @@ class Level{
 
     save(player){
         //fetch request to save
-        fetch(`http://localhost:3000/savefiles/1`,{ //need savefile ID
+        fetch(`http://localhost:3000/savefiles/${this.saveFile.id}`,{ //need savefile ID
             method:'PATCH',
             headers: {
                 "Content-Type":'application/json',

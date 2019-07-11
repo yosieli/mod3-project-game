@@ -15,8 +15,7 @@ body{
 .main-title{
     transform: scale(2,2);
     color: white;
-    text-align: center;
-    text-shadow: 1px 1px black;
+    text-align: center; 
 }
 .home-div{
     display: inline-flex;

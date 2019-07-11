@@ -4,7 +4,7 @@ class PlayableCharacter extends Character{
 
     constructor(x,y){
 
-        super(x,y,'/Users/feventsegay/Desktop/mod-3_game/frontend/animations/knight')
+        super(x,y,'file:///Users/feventsegay/Desktop/mod-3_game/frontend/animations/knight')
 
         PlayableCharacter.all.push(this)
 
@@ -13,14 +13,15 @@ class PlayableCharacter extends Character{
         this.health = 5
         this.healthBar = c('img')
         this.healthBar.id = "player-health"
-        this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
+        this.healthBar.src = `/Users/feventsegay/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
 
         //determines if player is invincible/hurt
         this.invincible = false
         this.isHurt = false
 
         //will slash up on game start when slash button is pressed
-        this.idleDirection = 'Up'
+        this.idleDirection='Up'
+        this.upkey = 'ArrowUp'
 
         //recording keyboard inputs
         document.addEventListener('keydown', (e)=> {
@@ -244,7 +245,7 @@ class PlayableCharacter extends Character{
     hitEffect(over = true){
         if(over){
             this.health --
-            this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
+            this.healthBar.src = `/Users/feventsegay/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
             this.invincible = true
             if(this.health <= 0){
                 this.dead = true

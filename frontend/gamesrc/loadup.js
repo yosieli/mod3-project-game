@@ -1,19 +1,10 @@
-//these four are already in the index.js page
-let s = (element) => document.querySelector(element)
-let c = (element) => document.createElement(element)
-const styleLink = './style.css'
-const gameLink = './game.css'
+// document.addEventListener('DOMContentLoaded',()=>{
 
-//put these in index.js later
-let gameArea
+//    let  gameArea = new GameArea()
+//     gameArea.render()
 
-document.addEventListener('DOMContentLoaded',()=>{
+//     //loads the level
+//     new Level()
 
-    gameArea = new GameArea()
-    gameArea.render()
-
-    //loads the level
-    new Level()
-
-})
+// })
  

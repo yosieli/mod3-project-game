@@ -11,6 +11,6 @@ class GameArea{
 
     exitGame(){
         document.body.innerText = ""
-        this.link.hrek = styleLink
+        this.link.href = styleLink
     }
 }

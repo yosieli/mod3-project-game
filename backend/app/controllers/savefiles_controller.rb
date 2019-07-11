@@ -6,6 +6,9 @@ class SavefilesController < ApplicationController
 
     def create
 
+     save_file = Savefile.create(allowed_params)
+     render json: save_file, methods: [:user]
+
     end
 
     def show
@@ -22,6 +25,7 @@ class SavefilesController < ApplicationController
 
     def allowed_params
         params.permit(
+            :user_id,
             :level,
             :time,
             :health

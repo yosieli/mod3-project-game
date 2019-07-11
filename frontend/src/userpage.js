@@ -2,7 +2,6 @@ class UserPage{
 
     constructor(user){
         this.user = user
-
         this.h1 = c('h1')
         this.h1.innerText = `Hello ${this.user.username.toUpperCase()}`
         this.h1.className = 'main-title'
@@ -17,6 +16,34 @@ class UserPage{
         newh1.className = "save-title"
         newh1.innerText = "Start New Game"
         newDiv.append(newh1)
+
+        newh1.addEventListener('click',()=>{
+
+            
+            fetch(`http://localhost:3000/savefiles`,{ 
+            method:'POST',
+            headers: {
+                "Content-Type":'application/json',
+                'Accept':'application/json'
+            },
+            body: JSON.stringify({
+                user_id: user.id,
+                level: 1,
+                time: 0,
+                health: 5
+            })
+        })
+        .then(response => response.json())
+        .then(result => console.log("this is post ", result))
+    
+        let  gameArea = new GameArea()
+        gameArea.render()
+    
+        //loads the level
+        new Level()
+
+
+        })
 
         this.optionsdiv.append(newDiv)
 
@@ -63,6 +90,16 @@ class UserPage{
 
         div.append(h2,level,time,health)
         this.optionsdiv.append(div)
+
+        div.addEventListener('click',()=>{
+            let  gameArea = new GameArea()
+            gameArea.render()
+        
+            //loads the level
+            new Level(file)
+    
+
+        })
     }
 
     logout(){
