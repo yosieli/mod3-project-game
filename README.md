@@ -20,16 +20,8 @@ https://cartoonsmart.com/pixel-art-collection-royalty-free-game-art/
 create tests
 -need 3 tests minimum
     -high scores are in order
+    -only 10 high scores displayed
     -save file is created/updated to database on fetches
-    -
-
-highscores only go to top 10/20
-
-connect to database
--leads from game back to userpage
-
-connect index.html and game.html
-after beating a level, gives option to load next level
 
 -----
 ask to save after beating each level

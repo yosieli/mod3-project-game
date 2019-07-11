@@ -2,7 +2,7 @@ class PlayableCharacter extends Character{
         
     static all = []
 
-    constructor(x,y,health = 5){
+    constructor(x,y,health){
 
         super(x,y,'file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight')
 

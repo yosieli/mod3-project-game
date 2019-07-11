@@ -68,14 +68,19 @@ class Level{
 
     victory(){
         this.endScreen("Level Complete","Save & Continue","Save & Quit")
-        this.option1.addEventListener('click', ()=> this.save()) //doesn't continue yet
-        this.option2 //add event listener
+        this.option1.addEventListener('click', ()=> this.save(false))
+        this.option2.addEventListener('click', ()=> this.save(true))
     }
 
     defeat(){
         this.endScreen("Game Over","Try Again","Quit")
-        this.option1 //add event listener
-        this.option2 //add event listener
+        this.option1.addEventListener('click',()=>{
+            let  gameArea = new GameArea(this.savefile.id)
+            gameArea.render()
+        })
+            this.option2.addEventListener('click',()=>{
+            GameArea.endLevelQuit()
+        })
     }
 
     endScreen(stringStatus,string1,string2){
@@ -107,7 +112,7 @@ class Level{
         document.body.append(statusBox)
     }
 
-    save(player){
+    save(quit){
         //adds one health if health is less than 5
         if(this.player.health<5){
             this.player.health ++
@@ -127,6 +132,13 @@ class Level{
             })
         })
         .then(response => response.json())
-        .then(result => console.log(result))
+        .then(result => {
+            if(quit){
+                GameArea.endLevelQuit()
+            }else{
+                let  gameArea = new GameArea(this.savefile.id)
+                gameArea.render()
+            }
+        })
     }
 }
