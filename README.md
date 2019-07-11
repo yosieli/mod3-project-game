@@ -16,20 +16,6 @@ game background
 https://cartoonsmart.com/pixel-art-collection-royalty-free-game-art/
 
 #Goals
-----
-create tests
--need 3 tests minimum
-    -high scores are in order
-    -only 10 high scores displayed
-    -save file is created/updated to database on fetches
-
------
-ask to save after beating each level
-    -gives option to save on new file or original file
-
-pause functionality
-
-give load and delete options on save files in user page
 
 add bosses
 
