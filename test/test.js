@@ -1,27 +1,23 @@
-let orderTotal = (array) => {
-    return array.reduce( (total,num)=> {
-        if( isNaN(parseFloat(total)) || isNaN(parseFloat(num)) ){
-            throw TypeError('Not a number')
-        }else{
-            return parseFloat(total)+parseFloat(num)
-        }
-    })
-}
+let testPage = new HomePage
+
+let testArray = [{level: 4,time: 100},{level: 3,time: 300},{level: 1,time: 100},{level: 2,time: 100},{level: 2,time: 80},{level: 2,time: 150},{level: 3,time: 100},{level: 2,time: 200},{level: 3,time: 150},{level: 2,time: 110},{level: 3,time: 200}]
+let resultArray = [{level: 4,time: 100},{level: 3,time: 100},{level: 3,time: 150},{level: 3,time: 200},{level: 3,time: 300},{level: 2,time: 80},{level: 2,time: 100},{level: 2,time: 110},{level: 2,time: 150},{level: 2,time: 200}]
 
 
-describe('orderTotal', ()=>{
-
-    it('throws TypeError if what is passed is not an array', ()=>{
-        expect( () => orderTotal('moo') ).to.throw(TypeError)
+describe('organizeScores', () =>{
+    it('does not re-arrange scores if times are out of order but level is in order', () => {
+        expect( testPage.organizeScores([{level: 2,time: 200},{level: 1,time: 100}]) ).to.eql([{level: 2,time: 200},{level: 1,time: 100}])
+        
     })
 
-    it('throws TypeError if array passed does not have numbers', ()=>{
-        expect( orderTotal(['1','2','3']) ).to.be.equal(6)
-        expect( () => orderTotal(['hello','2','3']) ).to.throw(TypeError)
+    it('re-arranges scores if level is not in right order', () => {
+       expect( testPage.organizeScores([{level: 1,time: 200},{level: 2,time: 100}]) ).to.eql([{level: 2,time: 100},{level: 1,time: 200}])
     })
 
-    it('Returns sum of array',() => {
-        expect( orderTotal([1,2,3,4]) ).to.be.equal(10)
-        expect( orderTotal([1,2,3,4,5]) ).to.be.equal(15)
-    })
+    it('Returns top 10 scores in the correct order', () => {
+        expect( testPage.organizeScores(testArray) ).to.eql(resultArray)
+        expect(testPage.organizeScores(testArray).length).to.eql(10)
+
+     })
+        
 })
