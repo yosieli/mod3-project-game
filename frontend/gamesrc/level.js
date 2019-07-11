@@ -48,8 +48,10 @@ class Level{
                     //puts status box with defeat text and options
                     this.defeat()
                 },3000)
+
                 //ends setInterval
                 clearInterval(interval)
+
             }else if(monsterCheck.length == Monster.all.length){
                 //stops player from moving
                 this.player.stop()

@@ -1,6 +1,8 @@
 class GameArea{
 
-    constructor(savefile){ //change to get savefile object instead of id
+    static endLevelQuit
+
+    constructor(savefile_id){
         this.link = s(".home")
 
         this.exitButton = c('button')
@@ -9,14 +11,19 @@ class GameArea{
         this.exitButton.addEventListener('click',()=>this.exitGame())
 
         //gets savefile
-        fetch(`http://localhost:3000/savefiles/${savefile.id}`)
-            .then(response => response.json())
-            .then(savefile => {
-                //clears page and changes which css file to use
-                this.render()
-                //loads level based on savefile
-                new Level(savefile)
-            })
+        fetch(`http://localhost:3000/savefiles/${savefile_id}`)
+        .then(response => response.json())
+        .then(savefile => {
+            this.savefile = savefile
+            //clears page and changes which css file to use
+            this.render()
+            //loads level based on savefile
+            new Level(this.savefile)
+        })
+        
+        GameArea.endLevelQuit = () =>{
+            this.exitGame()
+        }
     }
 
     render(){
@@ -28,6 +35,7 @@ class GameArea{
     exitGame(){
         document.body.innerText = ""
         this.link.href = styleLink
-        //render userPage the save file belongs to
+        let userPage = new UserPage(this.savefile.user)
+        userPage.render()
     }
 }

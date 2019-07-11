@@ -1,9 +1,8 @@
 class UserPage{
 
     constructor(user){
-        this.user = user
         this.h1 = c('h1')
-        this.h1.innerText = `Hello ${this.user.username.toUpperCase()}`
+        this.h1.innerText = `Hello ${user.username.toUpperCase()}`
         this.h1.className = 'main-title'
 
         //div for save file divs
@@ -30,26 +29,25 @@ class UserPage{
                 time: 0,
                 health: 5
             })
-        })
-        .then(response => response.json())
-        .then(result => console.log("this is post ", result))
-    
-        let  gameArea = new GameArea()
-        gameArea.render()
-    
-        //loads the level
-        new Level()
-
-
+            })
+            .then(response => response.json())
+            .then(result => {
+                let  gameArea = new GameArea(result)
+                gameArea.render()
+            })
         })
 
         this.optionsdiv.append(newDiv)
 
-        //makes divs for each save file
+        //makes divs for each save file. fetching for when user obect passed does not have savefiles listed
         let count = 1
-        this.user.savefiles.forEach((file)=>{
-            this.saveFile(file,count)
-            count++
+        fetch(`http://localhost:3000/users/${user.id}`)
+        .then(response => response.json())
+        .then( user => {
+            user.savefiles.forEach((file)=>{
+                this.saveFile(file,count)
+                count++
+            })
         })
 
         //logout button
@@ -90,7 +88,7 @@ class UserPage{
         this.optionsdiv.append(div)
 
         div.addEventListener('click',()=>{
-            let  gameArea = new GameArea(file)
+            let  gameArea = new GameArea(file.id)
             gameArea.render()
         })
     }
