@@ -27,15 +27,12 @@ class Level{
             let fakemonster = new Monster(500,500)
             fakemonster.render()
 
-            //checks if monster is hit by sword every 20 ms
+            //checks if monster is hit by sword or player is hit by monster every 20 ms
             setInterval( ()=>{
                 fakemonster.hurt(this.player)
-            },20)
-
-            //checks if player is hit by monster every 20 ms
-            setInterval( ()=>{
                 this.player.hurt(fakemonster)
             },20)
+
         }
 
         let interval = setInterval(()=>{

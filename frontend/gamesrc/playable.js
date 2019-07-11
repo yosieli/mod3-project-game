@@ -12,12 +12,13 @@ class PlayableCharacter extends Character{
         this.health = health
         this.healthBar = c('img')
         this.healthBar.id = "player-health"
-        // gif for 1 health or picture for any other health
-        if(this.health == 1){
-            this.healthBar.src = this.ASSET_ROOT + `/HP/Value_1.gif`
-        }else{
-            this.healthBar.src = this.ASSET_ROOT + `/HP/Value_${this.health}.png`
-        }
+        this.reduceHealth(false)
+
+        //defense count for player
+        this.defense = 5
+        this.defenseBar = c('img')
+        this.defenseBar.id = "player-defense"
+        this.reduceDefense(false)
 
         //determines if player is invincible/hurt
         this.invincible = false
@@ -95,8 +96,7 @@ class PlayableCharacter extends Character{
     }
 
     render(){
-        document.body.append(this.element)
-        document.body.append(this.healthBar)
+        document.body.append(this.element,this.healthBar,this.defenseBar)
     }
 
 
@@ -251,11 +251,10 @@ class PlayableCharacter extends Character{
 
     hitEffect(over = true){
         if(over){
-            this.health --
-            if(this.health == 1){
-                this.healthBar.src = this.ASSET_ROOT + `/HP/Value_1.gif`
+            if(this.defense <=0){
+                this.reduceHealth()
             }else{
-                this.healthBar.src = this.ASSET_ROOT + `/HP/Value_${this.health}.png`
+                this.reduceDefense()
             }
             this.invincible = true
             if(this.health <= 0){
@@ -269,6 +268,30 @@ class PlayableCharacter extends Character{
             this.element.style.animation = 'none'
             this.element.style.backgroundColor = "transparent"
             this.invincible = false
+        }
+    }
+
+    //displays health as falshing if 1 or normal if anything else. if reducing, will reduce health.
+    reduceHealth(reduce = true){
+        if(reduce){
+            this.health--
+        }
+        if(this.health == 1){
+            this.healthBar.src = this.ASSET_ROOT + `/HP/Value_1.gif`
+        }else{
+            this.healthBar.src = this.ASSET_ROOT + `/HP/Value_${this.health}.png`
+        }
+    }
+
+    //displays defense as falshing if 5 or normal if anything else. if reducing, will reduce defense.
+    reduceDefense(reduce = true){
+        if(reduce){
+            this.defense--
+        }
+        if(this.defense == 5){
+            this.defenseBar.src = this.ASSET_ROOT + `/defense/Value_5.gif`
+        }else{
+            this.defenseBar.src = this.ASSET_ROOT + `/defense/Value_${this.defense}.png`
         }
     }
 
