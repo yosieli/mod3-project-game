@@ -193,7 +193,8 @@ class HomePage{
                 return b.level-a.level
             }
         })
-        return files
+        let first_10_files =files.slice(0,10)
+        return first_10_files //only return first 10
     }
 
     //list the high scores
@@ -202,7 +203,7 @@ class HomePage{
         let li = c('li')
         li.innerText=`${file.user.username} | Level: ${file.level} | Time: ${file.time} seconds`
         ol.append(li)
-
+ 
     }
 
 }

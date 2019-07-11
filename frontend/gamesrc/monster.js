@@ -26,53 +26,53 @@ class Monster extends Character{
         //speed is slower than normal when walking around
         this.speed = 2
 
-        //makes monster go in random directions every second
-        // setInterval(()=>{
+        // makes monster go in random directions every second
+        setInterval(()=>{
 
-        //     const left = parseInt(this.element.style.left)
-        //     const bottom = parseInt(this.element.style.bottom)
+            const left = parseInt(this.element.style.left)
+            const bottom = parseInt(this.element.style.bottom)
 
-        //     //picks random direction each interval
-        //     const directionsArray = ['Up','Down','Left','Right']
-        //     let rand = directionsArray[Math.floor(Math.random() * directionsArray.length)]
+            //picks random direction each interval
+            const directionsArray = ['Up','Down','Left','Right']
+            let rand = directionsArray[Math.floor(Math.random() * directionsArray.length)]
 
-        //     if(rand === 'Up'){
-        //         this.element.direction = [null,null]
-        //         //boolean to check if monster is running against a wall
-        //         if ( document.documentElement.clientHeight >= (bottom+240) ){
-        //             this.runUp()
-        //         }else{
-        //             this.runDown()
-        //         }
-        //     }
-        //     if(rand === 'Down'){
-        //         this.element.direction = [null,null]
-        //         if ( bottom - 10 > 0 ){
-        //             this.runDown()
-        //         }else{
-        //             this.runUp()
-        //         }
+            if(rand === 'Up'){
+                this.element.direction = [null,null]
+                //boolean to check if monster is running against a wall
+                if ( document.documentElement.clientHeight >= (bottom+240) ){
+                    this.runUp()
+                }else{
+                    this.runDown()
+                }
+            }
+            if(rand === 'Down'){
+                this.element.direction = [null,null]
+                if ( bottom - 10 > 0 ){
+                    this.runDown()
+                }else{
+                    this.runUp()
+                }
                 
-        //     }
-        //     if(rand === 'Left'){
-        //         this.element.direction = [null,null]
-        //         if( left+10 > 0 ){
-        //             this.runLeft()
-        //         }else{
-        //             this.runRight()
-        //         }
-        //     }
-        //     if(rand === 'Right'){
-        //         this.element.direction = [null,null]
-        //         if( document.documentElement.clientWidth >= (left+80) ){
-        //             this.runRight()
-        //         }else{
-        //             this.runLeft()
-        //         }
+            }
+            if(rand === 'Left'){
+                this.element.direction = [null,null]
+                if( left+10 > 0 ){
+                    this.runLeft()
+                }else{
+                    this.runRight()
+                }
+            }
+            if(rand === 'Right'){
+                this.element.direction = [null,null]
+                if( document.documentElement.clientWidth >= (left+80) ){
+                    this.runRight()
+                }else{
+                    this.runLeft()
+                }
                 
-        //     }
+            }
 
-        // },1000)
+        },1000)
 
 
 

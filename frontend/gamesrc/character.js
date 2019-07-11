@@ -10,7 +10,6 @@ class Character{
         this.element.style.width = '75px'
         this.element.style.height = '75px'
         this.element.style.position = 'absolute'
-
         this.element.src = `${this.ASSET_ROOT}/idle.gif`
         this.element.direction = [null,null]
         this.speed = 5
@@ -148,3 +147,5 @@ class Character{
     }
 
 }
+
+
