@@ -4,7 +4,7 @@ class PlayableCharacter extends Character{
 
     constructor(x,y,health = 5){
 
-        super(x,y,'file:///Users/feventsegay/Desktop/mod-3_game/frontend/animations/knight')
+        super(x,y,'file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight')
 
         PlayableCharacter.all.push(this)
 
@@ -14,9 +14,9 @@ class PlayableCharacter extends Character{
         this.healthBar.id = "player-health"
         // gif for 1 health or picture for any other health
         if(this.health == 1){
-            this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_1.gif`
+            this.healthBar.src = this.ASSET_ROOT + `/HP/Value_1.gif`
         }else{
-            this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
+            this.healthBar.src = this.ASSET_ROOT + `/HP/Value_${this.health}.png`
         }
 
         //determines if player is invincible/hurt
@@ -56,7 +56,7 @@ class PlayableCharacter extends Character{
             if(this.downkey == 'ArrowRight'){
                 this.runRight()
             }
-            if(this.downkey == ' '){
+            if(this.downkey == ' ' && !this.element.src.includes("slash")){
                 this.slash()
             }
         })
@@ -252,7 +252,11 @@ class PlayableCharacter extends Character{
     hitEffect(over = true){
         if(over){
             this.health --
-            this.healthBar.src = `/Users/feventsegay/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
+            if(this.health == 1){
+                this.healthBar.src = this.ASSET_ROOT + `/HP/Value_1.gif`
+            }else{
+                this.healthBar.src = this.ASSET_ROOT + `/HP/Value_${this.health}.png`
+            }
             this.invincible = true
             if(this.health <= 0){
                 this.gameOver()

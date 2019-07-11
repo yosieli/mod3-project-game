@@ -47,3 +47,6 @@ add bosses
 
 #Bugs
 spamming slash button with no directions glitches character
+character max height doesn't changed based on background (looks like characters are walking in the sky)
+
+adjust for links with HP and other links
