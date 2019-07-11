@@ -68,8 +68,27 @@ progress:before{
     height: 300;
     background-color: #00000050;
     color: white;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 #status-text{
+    text-align: center;
+    width: 100%;
+}
+.option-box{
+    height: 70px;
+    width: 200px;
+    background-color: #ffffff40;
+    color:white;
+    transition: transform 0.5s;
+}
+.option-box:hover{
+    background-color: black;
+    transform: scale(1.1, 1.1);
+}
+.option-text{
     text-align: center;
 }
 

@@ -9,7 +9,7 @@ class Monster extends Character{
 
         //makes health bar for each monster
         this.healthBar = c('progress')
-        //start with 100 hp
+        //start with 50 hp
         this.healthBar.max = 50
         this.healthBar.value = 50
 

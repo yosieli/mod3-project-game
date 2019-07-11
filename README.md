@@ -33,9 +33,9 @@ after beating a level, gives option to load next level
 
 -----
 ask to save after beating each level
+    -gives option to save on new file or original file
 
 pause functionality
-quit button
 
 give load and delete options on save files in user page
 
