@@ -7,6 +7,8 @@ class Monster extends Character{
 
         Monster.all.push(this)
 
+        this.element.style.border = "solid 2px black"
+
         //makes health bar for each monster
         this.healthBar = c('progress')
         //start with 50 hp
@@ -85,9 +87,9 @@ class Monster extends Character{
 
     //hitbox for monster
     hitbox(){
-        let leftBorder = parseInt(this.element.style.left) + 25
-        let rightBorder = parseInt(this.element.style.left) + 50
-        let topBorder = parseInt(this.element.style.bottom) + 60
+        let leftBorder = parseInt(this.element.style.left) + 10
+        let rightBorder = parseInt(this.element.style.left) + 65
+        let topBorder = parseInt(this.element.style.bottom) + 55
         let bottomBorder = parseInt(this.element.style.bottom) + 20
 
         return [leftBorder,rightBorder,topBorder,bottomBorder]
@@ -95,10 +97,10 @@ class Monster extends Character{
 
     //hurtbox for monster
     hurtbox(){
-        let leftBorder = parseInt(this.element.style.left) + 25
-        let rightBorder = parseInt(this.element.style.left) + 55
-        let topBorder = parseInt(this.element.style.bottom) + 75
-        let bottomBorder = parseInt(this.element.style.bottom)
+        let leftBorder = parseInt(this.element.style.left)
+        let rightBorder = parseInt(this.element.style.left) + 75
+        let topBorder = parseInt(this.element.style.bottom) + 55
+        let bottomBorder = parseInt(this.element.style.bottom) + 20
 
         return [leftBorder,rightBorder,topBorder,bottomBorder]
     }
@@ -137,10 +139,10 @@ class Monster extends Character{
 
         //if health reaches 0, monster is removed
         if(this.healthBar.value <= 0){
-            this.element.style = ""
-            this.element.remove()
+            this.dead = true
             this.healthBar.remove()
-            this.dead = true  
+            this.element.remove()
+            this.element.style = ""
         }
 
         //makes monster run in direction he was hit

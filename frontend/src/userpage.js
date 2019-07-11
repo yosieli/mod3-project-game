@@ -32,7 +32,7 @@ class UserPage{
             })
             .then(response => response.json())
             .then(result => {
-                let  gameArea = new GameArea(result)
+                let  gameArea = new GameArea(result.id)
                 gameArea.render()
             })
         })

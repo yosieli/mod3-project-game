@@ -31,14 +31,10 @@ pause functionality
 
 give load and delete options on save files in user page
 
-change animation for monsters
-
 add bosses
 
 
 
 #Bugs
-spamming slash button with no directions glitches character
-character max height doesn't changed based on background (looks like characters are walking in the sky)
-
-adjust for links with HP and other links
+spamming slash button with no directions glitches character (not sure if this still happens)
+character max walking height doesn't changed based on background (looks like characters are walking in the sky)
