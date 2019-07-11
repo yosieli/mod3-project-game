@@ -46,3 +46,4 @@ add bosses
 
 
 #Bugs
+spamming slash button with no directions glitches character

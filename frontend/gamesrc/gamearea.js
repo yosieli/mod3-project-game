@@ -1,6 +1,6 @@
 class GameArea{
 
-    constructor(savefile_id){ //change to get savefile object instead of id
+    constructor(savefile){ //change to get savefile object instead of id
         this.link = s(".home")
 
         this.exitButton = c('button')
@@ -9,7 +9,7 @@ class GameArea{
         this.exitButton.addEventListener('click',()=>this.exitGame())
 
         //gets savefile
-        fetch(`http://localhost:3000/savefiles/${savefile_id}`)
+        fetch(`http://localhost:3000/savefiles/${savefile.id}`)
             .then(response => response.json())
             .then(savefile => {
                 //clears page and changes which css file to use

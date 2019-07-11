@@ -18,8 +18,6 @@ class UserPage{
         newDiv.append(newh1)
 
         newh1.addEventListener('click',()=>{
-
-            
             fetch(`http://localhost:3000/savefiles`,{ 
             method:'POST',
             headers: {
@@ -92,13 +90,8 @@ class UserPage{
         this.optionsdiv.append(div)
 
         div.addEventListener('click',()=>{
-            let  gameArea = new GameArea()
+            let  gameArea = new GameArea(file)
             gameArea.render()
-        
-            //loads the level
-            new Level(file)
-    
-
         })
     }
 
