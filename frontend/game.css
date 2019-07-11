@@ -72,3 +72,22 @@ progress:before{
 #status-text{
     text-align: center;
 }
+
+/* Exit button */
+#exit-button{
+    font-size: 2em;
+    position: absolute;
+    top: 10px;
+    left: 300px;
+    background-color: #00000050;
+    color: white;
+    transition: transform 0.5s;
+}
+#exit-button:hover{
+    background-color: black;
+    transform: scale(1.1, 1.1);
+}
+#exit-button:active{
+    background-color: transparent;
+    color:black;
+}

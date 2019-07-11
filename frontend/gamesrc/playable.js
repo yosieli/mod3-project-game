@@ -2,7 +2,7 @@ class PlayableCharacter extends Character{
         
     static all = []
 
-    constructor(x,y){
+    constructor(x,y,health = 5){
 
         //used full path so animation comparisons will work
         super(x,y,'file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight')
@@ -10,10 +10,15 @@ class PlayableCharacter extends Character{
         PlayableCharacter.all.push(this)
 
         //health for player
-        this.health = 5
+        this.health = health
         this.healthBar = c('img')
         this.healthBar.id = "player-health"
-        this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
+        // gif for 1 health or picture for any other health
+        if(this.health == 1){
+            this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_1.gif`
+        }else{
+            this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
+        }
 
         //determines if player is invincible/hurt
         this.invincible = false
@@ -157,6 +162,8 @@ class PlayableCharacter extends Character{
                 // checks if player stopped moving before slash animation was complete
                 }else if(idleCheck && !this.dead){
                     this.element.src = `${this.ASSET_ROOT}/idle.gif`
+                }else if(this.dead){
+                    this.element.src = "file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
                 }else{
                     this.element.src = this.storedAnimation
                 }
@@ -249,8 +256,7 @@ class PlayableCharacter extends Character{
             this.healthBar.src = `/Users/flatironschool/Desktop/mod-3_game/frontend/animations/HP/HP_Value_${this.health}.png`
             this.invincible = true
             if(this.health <= 0){
-                this.dead = true
-                this.stop()
+                this.gameOver()
             }else{
                 this.element.style.animation = 'shake 1s'
                 this.element.style.backgroundColor = "#FFA50070"
@@ -261,6 +267,12 @@ class PlayableCharacter extends Character{
             this.element.style.backgroundColor = "transparent"
             this.invincible = false
         }
+    }
+
+    gameOver(){
+        this.dead = true
+        this.stop()
+        this.element.src = "file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
     }
 
 }

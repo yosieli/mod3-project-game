@@ -23,8 +23,10 @@ create tests
     -save file is created/updated to database on fetches
     -
 
+highscores only go to top 10/20
+
 connect to database
--post(new game)
+-leads from game back to userpage
 
 connect index.html and game.html
 after beating a level, gives option to load next level
@@ -41,7 +43,6 @@ change animation for monsters
 
 add bosses
 
-highscores only go to top 10/20
+
 
 #Bugs
-sword animation does not stay if direction is changed

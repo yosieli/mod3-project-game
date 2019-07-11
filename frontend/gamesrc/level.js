@@ -22,15 +22,16 @@ class Level{
         statusText.id = "status-text"
         statusBox.append(statusText)
 
+        //options for if player wins
+
         
         
 
         //resets monster health bar positions
         Monster.healthPosition = 5
 
-        //loads player
-        let player = new PlayableCharacter(30,60)
-        player.health = savefile.health
+        //loads player with proper health
+        let player = new PlayableCharacter(30,60,savefile.health)
         player.render()
 
         //creates monsters based on level number
@@ -58,7 +59,7 @@ class Level{
                 Level.winMonster = true
             }
             if(player.dead){
-                player.element.src = "/Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
+                player.gameOver()
                 setTimeout(()=>{
                     //puts status box with defeat
                     statusText.innerText = "Game Over"
