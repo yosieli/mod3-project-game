@@ -19,6 +19,11 @@ class SavefilesController < ApplicationController
         render json: save_file, methods: [:user]
     end
 
+    def destroy
+        save_file = Savefile.find(params[:id])
+        save_file.destroy
+    end
+
     private
 
     def allowed_params

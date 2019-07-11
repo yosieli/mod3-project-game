@@ -1,8 +1,9 @@
 class UserPage{
 
     constructor(user){
+        this.user = user
         this.h1 = c('h1')
-        this.h1.innerText = `Hello ${user.username.toUpperCase()}`
+        this.h1.innerText = `Hello ${this.user.username.toUpperCase()}`
         this.h1.className = 'main-title'
 
         //div for save file divs
@@ -24,7 +25,7 @@ class UserPage{
                 'Accept':'application/json'
             },
             body: JSON.stringify({
-                user_id: user.id,
+                user_id: this.user.id,
                 level: 1,
                 time: 0,
                 health: 5
@@ -32,34 +33,45 @@ class UserPage{
             })
             .then(response => response.json())
             .then(result => {
-                let  gameArea = new GameArea(result)
+                let  gameArea = new GameArea(result.id)
                 gameArea.render()
             })
         })
 
         this.optionsdiv.append(newDiv)
 
-        //makes divs for each save file. fetching for when user obect passed does not have savefiles listed
-        let count = 1
-        fetch(`http://localhost:3000/users/${user.id}`)
-        .then(response => response.json())
-        .then( user => {
-            user.savefiles.forEach((file)=>{
-                this.saveFile(file,count)
-                count++
-            })
-        })
-
         //logout button
         this.logoutbutton = c('button')
         this.logoutbutton.innerText = "Log Out"
         this.logoutbutton.className = 'logout'
         this.logoutbutton.addEventListener('click',()=>this.logout())   
+
+        //delete account button
+        this.deleteAccountButton = c('button')
+        this.deleteAccountButton.innerText = "Delete Account"
+        this.deleteAccountButton.className = 'delete-account'
+        this.deleteAccountButton.addEventListener('click',()=>this.deleteAccount())   
     }
 
     render(){
         document.body.innerHTML = ""
-        document.body.append(this.h1,this.optionsdiv,this.logoutbutton)
+        // this.optionsdiv.empty()
+        
+
+        //makes divs for each save file. fetching for when user obect passed does not have savefiles listed
+        //put in render so that when savefile is deleted, will show
+        let count = 1
+        fetch(`http://localhost:3000/users/${this.user.id}`)
+        .then(response => response.json())
+        .then( desiredUser => {
+            console.log(desiredUser.savefiles.length)
+            desiredUser.savefiles.forEach((file)=>{
+                this.saveFile(file,count)
+                count++
+            })
+        })
+
+        document.body.append(this.h1,this.optionsdiv,this.logoutbutton,this.deleteAccountButton)
 
         loadSource()
     }
@@ -84,16 +96,40 @@ class UserPage{
         health.className = 'save-info'
         health.innerText = "Health: " + file.health
 
-        div.append(h2,level,time,health)
-        this.optionsdiv.append(div)
+        //delete account button
+        let deleteButton = c('button')
+        deleteButton.innerText = "Delete"
+        deleteButton.className = 'button-savefile'
+        deleteButton.addEventListener('click',()=>{
+            let deleteSavefile = confirm("Are you sure you want to delete this savefile? If this is a high score, it will remove it from the high score board.")
+            if(deleteSavefile){
+                fetch(`http://localhost:3000/savefiles/${file.id}`, {method:'DELETE'})
+                .then(()=>div.remove())
+            }
+        })
 
-        div.addEventListener('click',()=>{
+        //delete account button
+        let loadButton = c('button')
+        loadButton.innerText = "Load"
+        loadButton.className = 'button-savefile'
+        loadButton.addEventListener('click',()=>{
             let  gameArea = new GameArea(file.id)
             gameArea.render()
-        })
+        })  
+
+        div.append(h2,level,time,health,deleteButton,loadButton)
+        this.optionsdiv.append(div)
     }
 
     logout(){
         homePage.render()
+    }
+
+    deleteAccount(){
+        let deletion = confirm('Are you sure you want to delete your account? This will delete all of your save files and high scores.')
+        if(deletion){
+            fetch(`http://localhost:3000/users/${this.user.id}`, {method:'DELETE'})
+            this.logout()
+        }
     }
 }

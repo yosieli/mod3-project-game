@@ -34,6 +34,7 @@ class GameArea{
 
     exitGame(){
         document.body.innerText = ""
+        Monster.all = []
         this.link.href = styleLink
         let userPage = new UserPage(this.savefile.user)
         userPage.render()

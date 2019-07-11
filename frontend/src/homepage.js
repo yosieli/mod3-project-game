@@ -29,10 +29,10 @@ class HomePage{
         this.optionsdiv.className = "options-div"
         this.optionsdiv.append(newUserh2,loginh2,highScoresh2)
 
-        //creates div for forms/high score list and starts with high score list
+        //creates div for forms/high score list and starts with login form
         this.listdiv = c('div')
         this.listdiv.className = "list-div"
-        this.highScores()
+        this.login()
 
         //div for all homepage divs
         this.homeDiv = c('div')
@@ -44,9 +44,10 @@ class HomePage{
     //renders everything to the body of the document
     render(){
         document.body.innerHTML = ""
+        this.login()
         document.body.append(this.h1,this.homeDiv)
-        this.highScores()
 
+        //from source.js folder. loads where background of home page is from
         loadSource()
     }
 
@@ -202,11 +203,9 @@ class HomePage{
 
     //list the high scores
     listScores(file,ol){
-        
         let li = c('li')
         li.innerText=`${file.user.username} | Level: ${file.level} | Time: ${file.time} seconds`
         ol.append(li)
- 
     }
 
 }
