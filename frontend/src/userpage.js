@@ -1,6 +1,7 @@
 class UserPage{
 
     constructor(user){
+        this.user = user
         this.h1 = c('h1')
         this.h1.innerText = `Hello ${user.username.toUpperCase()}`
         this.h1.className = 'main-title'
@@ -55,11 +56,17 @@ class UserPage{
         this.logoutbutton.innerText = "Log Out"
         this.logoutbutton.className = 'logout'
         this.logoutbutton.addEventListener('click',()=>this.logout())   
+
+        //delete account button
+        this.deleteAccountButton = c('button')
+        this.deleteAccountButton.innerText = "Delete Account"
+        this.deleteAccountButton.className = 'delete-account'
+        this.deleteAccountButton.addEventListener('click',()=>this.deleteAccount())   
     }
 
     render(){
         document.body.innerHTML = ""
-        document.body.append(this.h1,this.optionsdiv,this.logoutbutton)
+        document.body.append(this.h1,this.optionsdiv,this.logoutbutton,this.deleteAccountButton)
 
         loadSource()
     }
@@ -84,6 +91,12 @@ class UserPage{
         health.className = 'save-info'
         health.innerText = "Health: " + file.health
 
+        //delete account button
+        let deleteButton = c('button')
+        deleteButton.innerText = "Delete"
+        deleteButton.className = 'delete-savefile'
+        deleteButton.addEventListener('click',()=>console.log('delete'))  
+
         div.append(h2,level,time,health)
         this.optionsdiv.append(div)
 
@@ -95,5 +108,13 @@ class UserPage{
 
     logout(){
         homePage.render()
+    }
+
+    deleteAccount(){
+        let deletion = confirm('Are you sure you want to delete your account? This will delete all of your save files and high scores.')
+        if(deletion){
+            fetch(`http://localhost:3000/users/${this.user.id}`, {method:'DELETE'})
+            this.logout()
+        }
     }
 }

@@ -7,8 +7,6 @@ class Monster extends Character{
 
         Monster.all.push(this)
 
-        this.element.style.border = "solid 2px black"
-
         //makes health bar for each monster
         this.healthBar = c('progress')
         //start with 50 hp

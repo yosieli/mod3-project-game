@@ -87,3 +87,14 @@ input{
     background-color: lightblue;
     transform: scale(1.1,1.1);
 }
+
+.delete-account{
+    font-size: 20px;
+    text-align: center;
+    margin-left: 50px;
+    transition: background-color .5s, transform .5s;
+}
+.delete-account:hover{
+    background-color: lightblue;
+    transform: scale(1.1,1.1);
+}
