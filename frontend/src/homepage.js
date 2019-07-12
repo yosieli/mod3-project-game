@@ -204,7 +204,13 @@ class HomePage{
     //list the high scores
     listScores(file,ol){
         let li = c('li')
-        li.innerText=`${file.user.username} | Level: ${file.level} | Time: ${file.time} seconds`
+        let display
+        if(file.level > 20){
+            display = "Game Completed"
+        }else{
+            display = file.level
+        }
+        li.innerText=`${file.user.username} | Level: ${display} | Time: ${file.time} seconds`
         ol.append(li)
     }
 
