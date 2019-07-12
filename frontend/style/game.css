@@ -7,6 +7,12 @@ body{
 #time-tracker{
     position: absolute;
     left: 200;
+    top: 40;
+    color: black;
+}
+#show-level{
+    position: absolute;
+    left: 200;
     top: 0;
     color: black;
 }

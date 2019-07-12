@@ -23,6 +23,12 @@ class Level{
         this.tracker.innerText = `Time: ${Level.time}`
         document.body.append(this.tracker)
 
+        //shows what level player is on
+        let showLevel = c('h3')
+        showLevel.id = "show-level"
+        showLevel.innerText = `Level: ${savefile.level}`
+        document.body.append(showLevel)
+
         //resets monster health bar positions
         Monster.healthPosition = 15
         Boss.healthPosition = 15
@@ -47,15 +53,17 @@ class Level{
 
         }
 
-        //creates 1 boss monster every 5 levels 
-        for (let i = 0; i < parseInt(this.savefile.level/5); i++) {
-            let skullBoss = new Boss(600,500)
-            skullBoss.render()
-
-            setInterval( ()=>{
-                skullBoss.hurt(this.player)
-                this.player.hurt(skullBoss)
-            },20)
+        //creates 1 boss monster every 5 levels. Won't load bosses unless level 5,10,15, or 20
+        if(this.savefile.level%5 == 0){
+            for (let i = 0; i < parseInt(this.savefile.level/5); i++) {
+                let skullBoss = new Boss(600,500)
+                skullBoss.render()
+    
+                setInterval( ()=>{
+                    skullBoss.hurt(this.player)
+                    this.player.hurt(skullBoss)
+                },20)
+            }
         }
 
 
