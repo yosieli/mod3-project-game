@@ -298,11 +298,7 @@ class PlayableCharacter extends Character{
     gameOver(){
         this.dead = true
         this.stop()
-<<<<<<< HEAD
-        this.element.src = `${this.ASSET_ROOT}/death.gif` 
-=======
         this.element.src = `${this.ASSET_ROOT}/death.gif`
->>>>>>> 13504de0363e1310201ad26a21a9f137fb274750
     }
 
 }

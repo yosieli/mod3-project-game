@@ -39,18 +39,10 @@ class Level{
         this.player = new PlayableCharacter(30,60,savefile.health)
         this.player.render()
 
-<<<<<<< HEAD
-        //creates monsters based on level number
-        for (let i = 0; i < (this.level); i++) {
-            //used full path so animation comparisons will work
-            let fakemonster = new Monster(500,500,'/Users/feventsegay/Desktop/mod-3_game/frontend/animations/monster')
-            fakemonster.render()
-=======
         //load directions if player is starting level 1
         if(savefile.level == 1){
             this.directions()
         }
->>>>>>> 13504de0363e1310201ad26a21a9f137fb274750
 
         //creates monsters based on level number
         for (let i = 0; i < this.savefile.level; i++) {
