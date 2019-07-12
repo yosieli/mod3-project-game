@@ -39,6 +39,11 @@ class Level{
         this.player = new PlayableCharacter(30,60,savefile.health)
         this.player.render()
 
+        //load directions if player is starting level 1
+        if(savefile.level == 1){
+            this.directions()
+        }
+
         //creates monsters based on level number
         for (let i = 0; i < this.savefile.level; i++) {
             //health of monsters will increase after every 5 levels
@@ -97,6 +102,35 @@ class Level{
             }
 
         },20)
+    }
+
+    directions(){
+        //directions box
+        let statusBox = c('div')
+        statusBox.id = "status-box"
+        let statusText = c('h1')
+        statusText.id = "status-text"
+        statusText.innerText = "Directions"
+
+        //arrow-keys and space bar pictures
+        let arrow = c('div')
+        arrow.className = "direction-box"
+        let arrowImage = c('img')
+        arrowImage.className = "direction-image"
+        arrowImage.src = "./animations/directions/arrow-keys.png"
+        arrow.append(arrowImage)
+        let space = c('div')
+        space.className = "direction-box"
+        let spaceImage = c('img')
+        spaceImage.className = "direction-image"
+        spaceImage.src = "./animations/directions/spacebar.png"
+        space.append(spaceImage)
+
+        
+        statusBox.append(statusText,arrow,space)
+
+        document.body.append(statusBox)
+        setTimeout(()=> statusBox.remove(),2000)
     }
 
     victory(){

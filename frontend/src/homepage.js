@@ -210,7 +210,7 @@ class HomePage{
         }else{
             display = file.level
         }
-        li.innerText=`${file.user.username} | Level: ${display} | Time: ${file.time} seconds`
+        li.innerText=`${file.user.username} | Current Level: ${display} | Time: ${file.time} seconds`
         ol.append(li)
     }
 

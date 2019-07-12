@@ -1,6 +1,8 @@
 # mod-3_game
 project for module 3 of flatiron school
 
+When loading, make sure to change the link in "playable.js","monster.js", and "boss.js" to the full path for your computer of that folder name (folders for animasions are in "animations"). The code needs the full path there since it sometimes compares actions based on animations.
+
 #sources
 knight animations from Warren Clark on itch.io
 https://lionheart963.itch.io/4-directional-character
@@ -15,9 +17,11 @@ https://www.deviantart.com/valdrec/art/Skeleton-Sprite-286341831
 game background
 https://cartoonsmart.com/pixel-art-collection-royalty-free-game-art/
 
-#Goals
+space-bar picture
+http://musaraza.com/flappycat/
 
-add bosses
+arrow-keys picture
+http://galeotealbert.com/quebec/how-to-fix-keyboard-arrow-keys.php
 
 
 

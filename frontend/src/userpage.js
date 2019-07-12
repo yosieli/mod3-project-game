@@ -82,7 +82,7 @@ class UserPage{
         let level = c('h3')
         level.className = 'save-info'
         if(file.level <=20){
-            level.innerText = "Level: " + file.level
+            level.innerText = "Current Level: " + file.level
         }else{
             level.innerText = "Game Completed: Final Score"
         }
