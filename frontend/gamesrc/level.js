@@ -41,8 +41,10 @@ class Level{
 
         //creates monsters based on level number
         for (let i = 0; i < this.savefile.level; i++) {
-            //used full path so animation comparisons will work
-            let slimemonster = new Monster(500,500)
+            //health of monsters will increase after every 5 levels
+            //levels 1-5: 20hp, 6-10 40hp, 11-15 60hp, 16-20 80hp
+            let health = 20 * (parseInt((this.savefile.level-1)/5)+1)
+            let slimemonster = new Monster(500,500,health)
             slimemonster.render()
 
             //checks if monster is hit by sword or player is hit by monster every 20 ms
@@ -83,7 +85,7 @@ class Level{
                 //ends setInterval
                 clearInterval(interval)
 
-            }else if(monsterCheck.length == Monster.all.length && bossCheck.length == Boss.all.length){
+            }else if(monsterCheck.length == Monster.all.length && bossCheck.length == Boss.all.length && Monster.all.length !== 0){
                 //stops player from moving
                 this.player.stop()
 
