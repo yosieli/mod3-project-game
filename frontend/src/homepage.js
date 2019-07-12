@@ -3,7 +3,7 @@ class HomePage{
     constructor(){
         //creates title on home page
         this.h1 = c('h1')
-        this.h1.innerText = "Dungeon Something"
+        this.h1.innerText = "Monster Hunter 8-Bit"
         this.h1.className = "main-title"
 
         //create account option

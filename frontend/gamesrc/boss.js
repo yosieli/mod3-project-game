@@ -1,7 +1,8 @@
 class Boss extends Character{
 
     static all = []
-    static healthPosition = 10
+    static healthPosition = 15
+    static healthPositionChange = false
 
     constructor(x,y){
 
@@ -9,10 +10,10 @@ class Boss extends Character{
 
         this.element.style.width = '100px'
         this.element.style.height = '100px'
-        this.speed = 5
+        this.speed = 4
         Boss.all.push(this)
 
-        // health bar for boss (did not give it functionality yet)
+        // health bar for boss
         this.health = 100
         this.healthBar = c('div')
         this.healthBar.id = "boss-health-bar"
@@ -23,55 +24,69 @@ class Boss extends Character{
         this.bar.innerText = `${this.health}%`
         this.healthBar.append(this.bar)
 
-        Boss.healthPosition = Boss.healthPosition + 50
+        
+
+        //lowers next health bar for next monster created
+        //will keep lowering until 10 monsters are created. then goes back up
+        if(!Boss.healthPositionChange){
+            Boss.healthPosition = Boss.healthPosition + 40
+            if(Boss.healthPosition >= 160){
+                Boss.healthPositionChange = true
+            }
+        }else{
+            Boss.healthPosition = Boss.healthPosition - 20
+            if(Boss.healthPosition <= 10){
+                Boss.healthPositionChange = false
+            }
+        }
 
         // // makes boss go in random directions every second
-        setInterval(()=>{
+        // setInterval(()=>{
 
-            const left = parseInt(this.element.style.left)
-            const bottom = parseInt(this.element.style.bottom)
+        //     const left = parseInt(this.element.style.left)
+        //     const bottom = parseInt(this.element.style.bottom)
 
-            //picks random direction each interval
-            const directionsArray = ['Up','Down','Left','Right']
-            let rand = directionsArray[Math.floor(Math.random() * directionsArray.length)]
+        //     //picks random direction each interval
+        //     const directionsArray = ['Up','Down','Left','Right']
+        //     let rand = directionsArray[Math.floor(Math.random() * directionsArray.length)]
 
-            if(rand === 'Up'){
-                this.element.direction = [null,null]
-                //boolean to check if boss is running against a wall
-                if ( document.documentElement.clientHeight >= (bottom+240) ){
-                    this.runUp()
-                }else{
-                    this.runDown()
-                }
-            }
-            if(rand === 'Down'){
-                this.element.direction = [null,null]
-                if ( bottom - 10 > 0 ){
-                    this.runDown()
-                }else{
-                    this.runUp()
-                }
+        //     if(rand === 'Up'){
+        //         this.element.direction = [null,null]
+        //         //boolean to check if boss is running against a wall
+        //         if ( document.documentElement.clientHeight >= (bottom+240) ){
+        //             this.runUp()
+        //         }else{
+        //             this.runDown()
+        //         }
+        //     }
+        //     if(rand === 'Down'){
+        //         this.element.direction = [null,null]
+        //         if ( bottom - 10 > 0 ){
+        //             this.runDown()
+        //         }else{
+        //             this.runUp()
+        //         }
                 
-            }
-            if(rand === 'Left'){
-                this.element.direction = [null,null]
-                if( left+10 > 0 ){
-                    this.runLeft()
-                }else{
-                    this.runRight()
-                }
-            }
-            if(rand === 'Right'){
-                this.element.direction = [null,null]
-                if( document.documentElement.clientWidth >= (left+80) ){
-                    this.runRight()
-                }else{
-                    this.runLeft()
-                }
+        //     }
+        //     if(rand === 'Left'){
+        //         this.element.direction = [null,null]
+        //         if( left+10 > 0 ){
+        //             this.runLeft()
+        //         }else{
+        //             this.runRight()
+        //         }
+        //     }
+        //     if(rand === 'Right'){
+        //         this.element.direction = [null,null]
+        //         if( document.documentElement.clientWidth >= (left+100) ){
+        //             this.runRight()
+        //         }else{
+        //             this.runLeft()
+        //         }
                 
-            }
+        //     }
 
-        },1000)
+        // },500)
 
 
     }
@@ -145,19 +160,19 @@ class Boss extends Character{
         setTimeout(()=>{
             this.element.style.backgroundColor = "transparent"
             if(direction == 'Right'){
-                this.speed = 15
+                this.speed = 12
                 this.runRight()
             }
             if(direction == 'Left'){
-                this.speed = 15
+                this.speed = 12
                 this.runLeft()
             }
             if(direction == 'Up'){
-                this.speed = 15
+                this.speed = 12
                 this.runUp()
             }
             if(direction == 'Down'){
-                this.speed = 15
+                this.speed = 12
                 this.runDown()
             }
 
@@ -165,7 +180,7 @@ class Boss extends Character{
 
         //puts speed back to normal and stops monster for a moment
         setTimeout(()=>{
-            this.speed = 5
+            this.speed = 4
             this.stop()
         },300)
     }

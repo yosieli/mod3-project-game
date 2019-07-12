@@ -81,7 +81,12 @@ class UserPage{
         
         let level = c('h3')
         level.className = 'save-info'
-        level.innerText = "Level: " + file.level
+        if(file.level <=20){
+            level.innerText = "Level: " + file.level
+        }else{
+            level.innerText = "Game Completed: Final Score"
+        }
+        
 
         let time = c('h3')
         time.className = 'save-info'
@@ -112,7 +117,11 @@ class UserPage{
             gameArea.render()
         })  
 
-        div.append(h2,level,time,health,deleteButton,loadButton)
+        if(file.level <=20){
+            div.append(h2,level,time,health,deleteButton,loadButton)
+        }else{
+            div.append(h2,level,time,health,deleteButton)
+        }
         this.optionsdiv.append(div)
     }
 

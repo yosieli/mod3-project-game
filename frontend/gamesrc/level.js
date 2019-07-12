@@ -11,22 +11,30 @@ class Level{
 
         this.savefile = savefile
 
+        //checks to make sure savefile is not greater than 20
+        if(this.savefile.level > 20){
+            this.savefile.level = 20
+        }
+
         //sets start time
         Level.time = this.savefile.time
-        let tracker = c('h3')
-        tracker.id = "time-tracker"
-        tracker.innerText = `Time: ${Level.time}`
-        document.body.append(tracker)
+        this.tracker = c('h3')
+        this.tracker.id = "time-tracker"
+        this.tracker.innerText = `Time: ${Level.time}`
+        document.body.append(this.tracker)
 
         //resets monster health bar positions
-        Monster.healthPosition = 5
+        Monster.healthPosition = 15
+        Boss.healthPosition = 15
+        Monster.healthPositionChange = false
+        Boss.healthPositionChange = false
 
         //loads player with proper health
         this.player = new PlayableCharacter(30,60,savefile.health)
         this.player.render()
 
         //creates monsters based on level number
-        for (let i = 0; i <= parseInt(this.savefile.level/2); i++) {
+        for (let i = 0; i < this.savefile.level; i++) {
             //used full path so animation comparisons will work
             let slimemonster = new Monster(500,500)
             slimemonster.render()
@@ -54,7 +62,7 @@ class Level{
 
         let interval = setInterval(()=>{
             Level.time ++
-            tracker.innerText = `Time: ${Level.time}`
+            this.tracker.innerText = `Time: ${Level.time}`
             let monsterCheck = Monster.all.filter( (monster)=> monster.dead )
             let bossCheck = Boss.all.filter( (boss)=> boss.dead )
             if(this.player.dead){
@@ -73,7 +81,7 @@ class Level{
 
                 //puts status box with victory
                 this.victory()
-
+                
                 //ends setInterval
                 clearInterval(interval)
             }
@@ -82,9 +90,23 @@ class Level{
     }
 
     victory(){
-        this.endScreen("Level Complete","Save & Continue","Save & Quit")
-        this.option1.addEventListener('click', ()=> this.save(false))
-        this.option2.addEventListener('click', ()=> this.save(true))
+        let timeReduction = this.player.defense * 100
+        this.tracker.innerText = `Time: ${Level.time} - ${timeReduction}`
+        Level.time = Level.time - timeReduction
+        setTimeout(()=>{
+            this.tracker.innerText = `Time: ${Level.time}`
+        },1000)
+        if(this.savefile.level < 20){
+            //if player beat level under level 20
+            this.endScreen("Level Complete","Save & Continue","Save & Quit")
+            this.option1.addEventListener('click', ()=> this.save(false))
+            this.option2.addEventListener('click', ()=> this.save(true))
+        }else{
+            //if player beat level 20
+            this.endScreen("YOU WIN!","No More Levels","Save & Quit")
+            this.option1.addEventListener('click', ()=> this.save(false))
+            this.option2.addEventListener('click', ()=> this.save(true))
+        }
     }
 
     defeat(){
@@ -117,8 +139,11 @@ class Level{
         option2Text.className = "option-text"
         this.option2.append(option2Text)
 
-        
-        statusBox.append(statusText,this.option1,this.option2)
+        if(string1 == "No More Levels"){
+            statusBox.append(statusText,this.option2)
+        }else{
+            statusBox.append(statusText,this.option1,this.option2)
+        }
 
         statusText.innerText = stringStatus
         option1Text.innerText = string1
@@ -131,6 +156,11 @@ class Level{
         //adds one health if health is less than 5
         if(this.player.health<5){
             this.player.health ++
+        }
+
+        //makes sure not to save anything past level 20
+        if(this.savefile.level > 20){
+            this.savefile.level = 20
         }
 
         //fetch request to save
