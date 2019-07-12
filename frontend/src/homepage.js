@@ -24,10 +24,16 @@ class HomePage{
         highScoresh2.className = "options"
         highScoresh2.addEventListener('click',()=>this.highScores())
 
+        //Instructions to play game
+        let instructionsh2 = c('h2')
+        instructionsh2.innerText = "Instructions"
+        instructionsh2.className = "options"
+        instructionsh2.addEventListener('click',()=>this.instructions())
+
         //creates div of options and appends options to the div
         this.optionsdiv = c('div')
         this.optionsdiv.className = "options-div"
-        this.optionsdiv.append(newUserh2,loginh2,highScoresh2)
+        this.optionsdiv.append(newUserh2,loginh2,highScoresh2,instructionsh2)
 
         //creates div for forms/high score list and starts with login form
         this.listdiv = c('div')
@@ -230,6 +236,36 @@ class HomePage{
         }
         li.innerText=`${file.user.username} | Current Level: ${display} | Time: ${file.time} seconds`
         ol.append(li)
+    }
+
+    //function to give instructions
+    instructions(){
+        this.listdiv.innerText = ""
+        let h2 = c('h2')
+        h2.innerText = "Instructions"
+        let ul = c('ul')
+        let li1 = c('li')
+        li1.innerText = "move with arrow keys and attack with space bar"
+        let li2 = c('li')
+        li2.innerText = "touching monsters hurt you"
+        let li3 = c('li')
+        li3.innerText = "defense shields will be refreshed every round"
+        let li4 = c('li')
+        li4.innerText = "health will only increase by 1 each level up to a maximum of 5"
+        let li5 = c('li')
+        li5.innerText = "every shield left at the end of a level will reduce your time by 100"
+        let li6 = c('li')
+        li6.innerText = "bosses appear starting level 5"
+        let li7 = c('li')
+        li7.innerText = "monster health increases every 5 levels"
+        let li8 = c('li')
+        li8.innerText = "there are 20 levels"
+        let li9 = c('li')
+        li9.innerText = "good luck"
+
+        ul.append(li1,li2,li3,li4,li5,li6,li7,li8,li9)
+
+        this.listdiv.append(h2,ul)
     }
 
 }
