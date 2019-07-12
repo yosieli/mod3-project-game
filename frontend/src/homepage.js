@@ -89,23 +89,37 @@ class HomePage{
     createUser(e,usernameInput,passwordInput,passwordConfirm){
         e.preventDefault()
 
+        let desiredUserName = usernameInput.value
+
         if(passwordInput.value !== passwordConfirm.value){
             alert('Passwords do not match')
         }else{
-            fetch(userURL,{
-                method: 'POST',
-                headers: {
-                    'Content-Type':'application/json',
-                    'Accept':'application/json'
-                },
-                body: JSON.stringify({
-                    username: usernameInput.value,
-                    password: passwordInput.value
-                })
-            })
+
+            fetch(userURL)
             .then(response => response.json())
-            .then(result => result.username)
-            .then(name => this.login(name))
+            .then(users => {
+                return users.map((user)=> user.username.toLowerCase())
+            })
+            .then(usernames =>{
+                if(usernames.includes(desiredUserName.toLowerCase())){
+                    alert(`"${desiredUserName}" is already taken`)
+                }else{
+                    fetch(userURL,{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: usernameInput.value,
+                            password: passwordInput.value
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(result => result.username)
+                    .then(name => this.login(name))
+                }
+            })
 
             usernameInput.value = ""
             passwordInput.value = ""
