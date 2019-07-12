@@ -38,6 +38,17 @@ class UserPage{
             })
         })
 
+        //makes divs for each save file. fetching for when user obect passed does not have savefiles listed
+        let count = 1
+        fetch(`http://localhost:3000/users/${this.user.id}`)
+        .then(response => response.json())
+        .then( desiredUser => {
+            desiredUser.savefiles.forEach((file)=>{
+                this.saveFile(file,count)
+                count++
+            })
+        })
+
         this.optionsdiv.append(newDiv)
 
         //logout button
@@ -55,22 +66,6 @@ class UserPage{
 
     render(){
         document.body.innerHTML = ""
-        // this.optionsdiv.empty()
-        
-
-        //makes divs for each save file. fetching for when user obect passed does not have savefiles listed
-        //put in render so that when savefile is deleted, will show
-        let count = 1
-        fetch(`http://localhost:3000/users/${this.user.id}`)
-        .then(response => response.json())
-        .then( desiredUser => {
-            console.log(desiredUser.savefiles.length)
-            desiredUser.savefiles.forEach((file)=>{
-                this.saveFile(file,count)
-                count++
-            })
-        })
-
         document.body.append(this.h1,this.optionsdiv,this.logoutbutton,this.deleteAccountButton)
 
         loadSource()
@@ -86,7 +81,12 @@ class UserPage{
         
         let level = c('h3')
         level.className = 'save-info'
-        level.innerText = "Level: " + file.level
+        if(file.level <=20){
+            level.innerText = "Current Level: " + file.level
+        }else{
+            level.innerText = "Game Completed: Final Score"
+        }
+        
 
         let time = c('h3')
         time.className = 'save-info'
@@ -117,7 +117,11 @@ class UserPage{
             gameArea.render()
         })  
 
-        div.append(h2,level,time,health,deleteButton,loadButton)
+        if(file.level <=20){
+            div.append(h2,level,time,health,deleteButton,loadButton)
+        }else{
+            div.append(h2,level,time,health,deleteButton)
+        }
         this.optionsdiv.append(div)
     }
 

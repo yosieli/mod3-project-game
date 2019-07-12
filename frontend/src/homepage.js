@@ -3,7 +3,7 @@ class HomePage{
     constructor(){
         //creates title on home page
         this.h1 = c('h1')
-        this.h1.innerText = "Dungeon Something"
+        this.h1.innerText = "Monster Hunter 8-Bit"
         this.h1.className = "main-title"
 
         //create account option
@@ -204,7 +204,13 @@ class HomePage{
     //list the high scores
     listScores(file,ol){
         let li = c('li')
-        li.innerText=`${file.user.username} | Level: ${file.level} | Time: ${file.time} seconds`
+        let display
+        if(file.level > 20){
+            display = "Game Completed"
+        }else{
+            display = file.level
+        }
+        li.innerText=`${file.user.username} | Current Level: ${display} | Time: ${file.time} seconds`
         ol.append(li)
     }
 

@@ -1,27 +1,39 @@
 class Monster extends Character{
-    static healthPosition = 5
+    static healthPosition = 15
+    static healthPositionChange = false
     static all = []
 
-    constructor(x,y,ROOT_URL){
-        super(x,y,ROOT_URL)
+    constructor(x,y,hp){
+        super(x,y,'/Users/flatironschool/Desktop/mod-3_game/frontend/animations/monster')
 
         Monster.all.push(this)
 
         //makes health bar for each monster
         this.healthBar = c('progress')
-        //start with 50 hp
-        this.healthBar.max = 50
-        this.healthBar.value = 50
+        //start with whatever hp is passed
+        this.healthBar.max = hp
+        this.healthBar.value = hp
 
         //puts to top right in order
         this.healthBar.style.top = Monster.healthPosition
+        //lowers next health bar for next monster created
+        //will keep lowering until 10 monsters are created. then goes back up
+        if(!Monster.healthPositionChange){
+            Monster.healthPosition = Monster.healthPosition + 20
+            if(Monster.healthPosition >= 190){
+                Monster.healthPositionChange = true
+                Monster.healthPosition = Monster.healthPosition - 10
+            }
+        }else{
+            Monster.healthPosition = Monster.healthPosition - 20
+            if(Monster.healthPosition <= 5){
+                Monster.healthPositionChange = false
+            }
+        }
 
         //labels the health
         this.healthCount = this.healthBar.value
         this.healthBar.setAttribute('health-count',`${this.healthCount}`)
-
-        //lowers next health bar for next monster created
-        Monster.healthPosition = Monster.healthPosition + 20
 
         //speed is slower than normal when walking around
         this.speed = 2
