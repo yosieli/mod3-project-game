@@ -4,7 +4,7 @@ class PlayableCharacter extends Character{
 
     constructor(x,y,health){
 
-        super(x,y,'file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight')
+        super(x,y,'file:///Users/feventsegay/Desktop/mod-3_game/frontend/animations/knight')
 
         PlayableCharacter.all.push(this)
 
@@ -162,7 +162,7 @@ class PlayableCharacter extends Character{
                 }else if(idleCheck && !this.dead){
                     this.element.src = `${this.ASSET_ROOT}/idle.gif`
                 }else if(this.dead){
-                    this.element.src = "file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
+                    this.element.src = `${this.ASSET_ROOT}/death.gif`
                 }else{
                     this.element.src = this.storedAnimation
                 }
@@ -275,7 +275,7 @@ class PlayableCharacter extends Character{
     gameOver(){
         this.dead = true
         this.stop()
-        this.element.src = "file:///Users/flatironschool/Desktop/mod-3_game/frontend/animations/knight/death.gif"
+        this.element.src = `${this.ASSET_ROOT}/death.gif` 
     }
 
 }

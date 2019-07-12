@@ -24,7 +24,7 @@ class Level{
         //creates monsters based on level number
         for (let i = 0; i < (this.level); i++) {
             //used full path so animation comparisons will work
-            let fakemonster = new Monster(500,500,'/Users/flatironschool/Desktop/mod-3_game/frontend/animations/monster')
+            let fakemonster = new Monster(500,500,'/Users/feventsegay/Desktop/mod-3_game/frontend/animations/monster')
             fakemonster.render()
 
             //checks if monster is hit by sword every 20 ms
