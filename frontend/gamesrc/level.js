@@ -67,7 +67,7 @@ class Level{
                 //ends setInterval
                 clearInterval(interval)
 
-            }else if(monsterCheck.length == Monster.all.length && bossCheck == Boss.all.length){
+            }else if(monsterCheck.length == Monster.all.length && bossCheck.length == Boss.all.length){
                 //stops player from moving
                 this.player.stop()
 
