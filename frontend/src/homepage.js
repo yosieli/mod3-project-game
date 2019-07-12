@@ -90,11 +90,15 @@ class HomePage{
         e.preventDefault()
 
         let desiredUserName = usernameInput.value
+        let desiredPassword = passwordInput.value
 
-        if(passwordInput.value !== passwordConfirm.value){
+        if(desiredUserName.split(" ").join("") == ""){
+            alert('Username cannot be blank')
+        }else if(desiredPassword.split(" ").join("") == ""){
+            alert('Password cannot be blank')
+        }else if(passwordInput.value !== passwordConfirm.value){
             alert('Passwords do not match')
         }else{
-
             fetch(userURL)
             .then(response => response.json())
             .then(users => {
@@ -111,8 +115,8 @@ class HomePage{
                             'Accept':'application/json'
                         },
                         body: JSON.stringify({
-                            username: usernameInput.value,
-                            password: passwordInput.value
+                            username: desiredUserName,
+                            password: desiredPassword
                         })
                     })
                     .then(response => response.json())

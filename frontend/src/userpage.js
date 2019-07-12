@@ -55,7 +55,7 @@ class UserPage{
         this.logoutbutton = c('button')
         this.logoutbutton.innerText = "Log Out"
         this.logoutbutton.className = 'logout'
-        this.logoutbutton.addEventListener('click',()=>this.logout())   
+        this.logoutbutton.addEventListener('click',()=>this.logout())
 
         //delete account button
         this.deleteAccountButton = c('button')
