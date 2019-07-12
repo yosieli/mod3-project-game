@@ -11,16 +11,18 @@ body{
     color: black;
 }
 /* For Boss Health */
-#myProgress{
+#boss-health-bar{
     width: 50%;
     background-color: grey;
     position: absolute;
-    top: 10px;
+    right: 200px;
 }
-#myBar{
-    width: 10%;
+#boss-health{
     height: 30px;
     background-color: red;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
 }
 
 /* For Monster Health */

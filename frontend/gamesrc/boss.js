@@ -1,14 +1,173 @@
-class Boss{
+class Boss extends Character{
 
-    constructor(){
+    static all = []
+    static healthPosition = 10
+
+    constructor(x,y){
+
+        super(x,y,'/Users/flatironschool/Desktop/mod-3_game/frontend/animations/boss')
+
+        this.element.style.width = '100px'
+        this.element.style.height = '100px'
+        this.speed = 5
+        Boss.all.push(this)
 
         // health bar for boss (did not give it functionality yet)
-        this.progress = c('div')
-        this.progress.id = "myProgress"
+        this.health = 100
+        this.healthBar = c('div')
+        this.healthBar.id = "boss-health-bar"
+        this.healthBar.style.top = Boss.healthPosition
         this.bar = c('div')
-        this.bar.id = "myBar"
-        this.progress.append(this.bar)
+        this.bar.id = "boss-health"
+        this.bar.style.width = `${this.health}%`
+        this.bar.innerText = `${this.health}%`
+        this.healthBar.append(this.bar)
 
+        Boss.healthPosition = Boss.healthPosition + 50
+
+        // // makes boss go in random directions every second
+        setInterval(()=>{
+
+            const left = parseInt(this.element.style.left)
+            const bottom = parseInt(this.element.style.bottom)
+
+            //picks random direction each interval
+            const directionsArray = ['Up','Down','Left','Right']
+            let rand = directionsArray[Math.floor(Math.random() * directionsArray.length)]
+
+            if(rand === 'Up'){
+                this.element.direction = [null,null]
+                //boolean to check if boss is running against a wall
+                if ( document.documentElement.clientHeight >= (bottom+240) ){
+                    this.runUp()
+                }else{
+                    this.runDown()
+                }
+            }
+            if(rand === 'Down'){
+                this.element.direction = [null,null]
+                if ( bottom - 10 > 0 ){
+                    this.runDown()
+                }else{
+                    this.runUp()
+                }
+                
+            }
+            if(rand === 'Left'){
+                this.element.direction = [null,null]
+                if( left+10 > 0 ){
+                    this.runLeft()
+                }else{
+                    this.runRight()
+                }
+            }
+            if(rand === 'Right'){
+                this.element.direction = [null,null]
+                if( document.documentElement.clientWidth >= (left+80) ){
+                    this.runRight()
+                }else{
+                    this.runLeft()
+                }
+                
+            }
+
+        },1000)
+
+
+    }
+
+    render(){
+        document.body.append(this.healthBar)
+        document.body.append(this.element)
+    }
+
+    //hitbox for monster
+    hitbox(){
+        let leftBorder = parseInt(this.element.style.left) + 10
+        let rightBorder = parseInt(this.element.style.left) + 90
+        let topBorder = parseInt(this.element.style.bottom) + 70
+        let bottomBorder = parseInt(this.element.style.bottom) + 30
+
+        return [leftBorder,rightBorder,topBorder,bottomBorder]
+    }
+
+    //hurtbox for monster
+    hurtbox(){
+        let leftBorder = parseInt(this.element.style.left) + 10
+        let rightBorder = parseInt(this.element.style.left) + 90
+        let topBorder = parseInt(this.element.style.bottom) + 70
+        let bottomBorder = parseInt(this.element.style.bottom) + 30
+
+        return [leftBorder,rightBorder,topBorder,bottomBorder]
+    }
+
+    //checks if hitbox of player touches hurtbox of monster
+    hurt(player){
+        let hitbox = player.hitbox(player.hitDirection)
+
+        let swordLeft = hitbox[0]
+        let swordRight = hitbox[1]
+        let swordUp = hitbox[2]
+        let swordDown = hitbox[3]
+
+        let selfLeft = this.hurtbox()[0]
+        let selfRight = this.hurtbox()[1]
+        let selfUp = this.hurtbox()[2]
+        let selfDown = this.hurtbox()[3]
+
+        if(swordRight >= selfLeft && swordLeft <= selfRight){
+            if(swordUp >= selfDown && swordDown <= selfUp){
+                this.hitstun(player.hitDirection)
+            } 
+        }
+    }
+
+    //what monster does when hit
+    hitstun(direction){
+
+        //shows when monster is hit
+        this.element.style.backgroundColor = "#FF000080"
+
+        //decreases health
+        this.health --
+        this.bar.style.width = `${this.health}%`
+        this.bar.innerText = `${this.health}%`
+
+        //if health reaches 0, boss is removed
+        if(this.health <= 0){
+            this.dead = true
+            this.healthBar.remove()
+            this.element.remove()
+            this.element.style = ""
+        }
+
+        //makes monster run in direction he was hit
+        setTimeout(()=>{
+            this.element.style.backgroundColor = "transparent"
+            if(direction == 'Right'){
+                this.speed = 15
+                this.runRight()
+            }
+            if(direction == 'Left'){
+                this.speed = 15
+                this.runLeft()
+            }
+            if(direction == 'Up'){
+                this.speed = 15
+                this.runUp()
+            }
+            if(direction == 'Down'){
+                this.speed = 15
+                this.runDown()
+            }
+
+        },100)
+
+        //puts speed back to normal and stops monster for a moment
+        setTimeout(()=>{
+            this.speed = 5
+            this.stop()
+        },300)
     }
     
 }

@@ -4,11 +4,15 @@ class Level{
     static time
 
     constructor(savefile){
+
+        //clears out any monsters or bosses that were created before
+        Monster.all = []
+        Boss.all = []
+
         this.savefile = savefile
-        //set level to be called later
-        this.level = savefile.level
+
         //sets start time
-        Level.time = savefile.time
+        Level.time = this.savefile.time
         let tracker = c('h3')
         tracker.id = "time-tracker"
         tracker.innerText = `Time: ${Level.time}`
@@ -22,23 +26,37 @@ class Level{
         this.player.render()
 
         //creates monsters based on level number
-        for (let i = 0; i < (this.level); i++) {
+        for (let i = 0; i <= parseInt(this.savefile.level/2); i++) {
             //used full path so animation comparisons will work
-            let fakemonster = new Monster(500,500)
-            fakemonster.render()
+            let slimemonster = new Monster(500,500)
+            slimemonster.render()
 
             //checks if monster is hit by sword or player is hit by monster every 20 ms
             setInterval( ()=>{
-                fakemonster.hurt(this.player)
-                this.player.hurt(fakemonster)
+                slimemonster.hurt(this.player)
+                this.player.hurt(slimemonster)
             },20)
 
         }
+
+        //creates 1 boss monster every 5 levels 
+        for (let i = 0; i < parseInt(this.savefile.level/5); i++) {
+            let skullBoss = new Boss(600,500)
+            skullBoss.render()
+
+            setInterval( ()=>{
+                skullBoss.hurt(this.player)
+                this.player.hurt(skullBoss)
+            },20)
+        }
+
+
 
         let interval = setInterval(()=>{
             Level.time ++
             tracker.innerText = `Time: ${Level.time}`
             let monsterCheck = Monster.all.filter( (monster)=> monster.dead )
+            let bossCheck = Boss.all.filter( (boss)=> boss.dead )
             if(this.player.dead){
                 this.player.gameOver()
                 setTimeout(()=>{
@@ -49,7 +67,7 @@ class Level{
                 //ends setInterval
                 clearInterval(interval)
 
-            }else if(monsterCheck.length == Monster.all.length){
+            }else if(monsterCheck.length == Monster.all.length && bossCheck == Boss.all.length){
                 //stops player from moving
                 this.player.stop()
 
@@ -123,7 +141,7 @@ class Level{
                 'Accept':'application/json'
             },
             body: JSON.stringify({
-                level: (this.level+1),
+                level: (this.savefile.level+1),
                 time: Level.time,
                 health: this.player.health
             })
