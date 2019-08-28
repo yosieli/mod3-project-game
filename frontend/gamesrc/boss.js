@@ -6,7 +6,7 @@ class Boss extends Character{
 
     constructor(x,y){
 
-        super(x,y,'/Users/feventsegay/Desktop/mod-3_game/frontend/animations/boss')
+        super(x,y,'/Users/feventsegay/Documents/feven documents/mod-3_game/frontend/animations/boss')
 
         this.element.style.width = '100px'
         this.element.style.height = '100px'

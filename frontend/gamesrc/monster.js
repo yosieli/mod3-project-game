@@ -4,7 +4,7 @@ class Monster extends Character{
     static all = []
 
     constructor(x,y,hp){
-        super(x,y,'/Users/feventsegay/Desktop/mod-3_game/frontend/animations/monster')
+        super(x,y,'/Users/feventsegay/Documents/feven documents/mod-3_game/frontend/animations/monster')
 
         Monster.all.push(this)
 

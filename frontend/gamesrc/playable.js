@@ -4,7 +4,7 @@ class PlayableCharacter extends Character{
 
     constructor(x,y,health){
 
-        super(x,y,'file:///Users/feventsegay/Desktop/mod-3_game/frontend/animations/knight')
+        super(x,y,'/Users/feventsegay/Documents/feven documents/mod-3_game/frontend/animations/knight')
 
         PlayableCharacter.all.push(this)
 
